@@ -8,7 +8,7 @@
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="assets/skull-light.gif" />
   <source media="(prefers-color-scheme: dark)"  srcset="assets/skull-dark.gif" />
-  <img src="assets/skull-dark.gif" alt="ascii skull" width="300" />
+  <img src="assets/skull-dark.gif" alt="ascii skull" width="440" />
 </picture>
 
 <br/><br/>
@@ -31,25 +31,36 @@
 ---
 
 ```console
-ismail@brainos:~$ cat ./profile.json
+ismail@brainos:~$ neofetch
 ```
-```jsonc
-{
-  "name":       "Ismail Barakat",
-  "role":       "Full Stack · Mobile · IoT Developer",
-  "age":        18,
-  "education":  "Diploma Informatica 96/100  →  Politecnico di Milano (Ing. Informatica)",
-  "focus":      ["Cybersecurity", "AI / ML", "Open Source", "IoT"],
-  "languages":  ["it", "ar", "en (B2)", "fr (A2)"],
-  "highlights": [
-    "Hackergen finalist  ·  FlappyBird 2",
-    "OliCyber Italia campus  ·  Torino 2026",
-    "Web internship @ BitCtrl  ·  Germany 2025"
-  ],
-  "motto":      "Sperimentare molto, misurare tutto, tenere ciò che funziona.",
-  "status":     "open to freelance & collaborations"
-}
+```text
+   ┌─────────────────────────────────────────────────────────────┐
+   │ OS ...... BrainOS · Arch Linux (btw)                        │
+   │ Host .... Politecnico di Milano — Ingegneria Informatica    │
+   │ Kernel .. 6.7-cybersec-amd64                                │
+   │ Uptime .. 18 years · still compiling                        │
+   │ Shell ... bash · zsh · pwsh                                 │
+   │ Roles ... Full-Stack · Mobile · IoT Developer               │
+   │ Langs ... Python · C · Dart · JS/TS · PHP · Java            │
+   │ Stack ... React19 · Vue · Node · Flutter · Docker · Linux   │
+   │ Editor .. VS Code  (nvim on good days)                      │
+   │ Focus ... Cybersecurity · AI/ML · Open Source · IoT         │
+   │ Awards .. Hackergen finalist · OliCyber '26 · @BitCtrl '25  │
+   │ Locale .. it_IT · ar · en_B2 · fr_A2                        │
+   │ Status .. open to freelance & collabs                       │
+   └─────────────────────────────────────────────────────────────┘
+   > "Sperimentare molto, misurare tutto, tenere ciò che funziona."
 ```
+
+<!-- palette bar stile neofetch -->
+<p>
+  <img src="https://img.shields.io/badge/-0d1117?style=flat-square&color=0d1117" height="22" />
+  <img src="https://img.shields.io/badge/-0e4429?style=flat-square&color=0e4429" height="22" />
+  <img src="https://img.shields.io/badge/-006d32?style=flat-square&color=006d32" height="22" />
+  <img src="https://img.shields.io/badge/-26a641?style=flat-square&color=26a641" height="22" />
+  <img src="https://img.shields.io/badge/-39d353?style=flat-square&color=39d353" height="22" />
+  <img src="https://img.shields.io/badge/-00ff41?style=flat-square&color=00ff41" height="22" />
+</p>
 
 ---
 
@@ -152,6 +163,10 @@ ismail@brainos:~$ cat ./profile.json
 
 <div align="center">
 
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=proismamaster&bg_color=0d1117&color=39d353&line=00ff41&point=ffffff&area=true&area_color=006d32&hide_border=true&custom_title=Contribution%20Signal" alt="activity graph" width="98%" />
+
+<br/><br/>
+
 <!-- Snake dei contributi — si attiva dopo il primo run della GitHub Action -->
 <picture>
   <source media="(prefers-color-scheme: dark)"  srcset="https://raw.githubusercontent.com/proismamaster/proismamaster/output/github-snake-dark.svg" />
@@ -195,3 +210,9 @@ ismail@brainos:~$ cat ./profile.json
 _Made with `☕`, `🔒` e un po' di `caos`. — Ismail_
 
 </details>
+
+<br/>
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:00ff41&height=130&section=footer&text=stay%20curious%20·%20keep%20shipping&fontColor=00ff41&fontSize=26&fontAlignY=72&animation=fadeIn" alt="footer wave" width="100%" />
+</div>
