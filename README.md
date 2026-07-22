@@ -96,22 +96,22 @@ ismail@brainos:~$ neofetch
 <tr>
 <td width="50%" valign="top">
 
-**🌊 [BaseFlow](https://github.com/proismamaster/BaseFlow)**
+** [BaseFlow](https://github.com/proismamaster/BaseFlow)**
 > Flowchart builder open source, in crescita.
 > `React` · `Vite` · `open-source`
 
-**🥗 [NutriApp](https://github.com/proismamaster/NutriApp-releases)**
+** [NutriApp](https://github.com/proismamaster/NutriApp-releases)**
 > App nutrizione con CI installer & release automatiche.
 > `desktop` · `CI/CD` · `v1.0.0`
 
 </td>
 <td width="50%" valign="top">
 
-**🐦 [FlappyBird 2](https://github.com/proismamaster/FlappyBird-2)** — 🏆 _Hackergen finalist_
+** [FlappyBird 2](https://github.com/proismamaster/FlappyBird-2)** — 🏆 _Hackergen finalist_
 > Riedizione del classico, premiata in hackathon.
 > `game` · `web`
 
-**🚗 [Raspberry Bluetooth Car](https://github.com/proismamaster/Rasberry-Car)**
+** [Raspberry Bluetooth Car](https://github.com/proismamaster/Rasberry-Car)**
 > Auto IoT comandata via Bluetooth.
 > `Raspberry Pi` · `Bluetooth` · `IoT`
 
