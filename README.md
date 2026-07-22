@@ -4,6 +4,15 @@
 
 <div align="center">
 
+<!-- ASCII skull — bg si adatta al tema (nero in dark, bianco in light) -->
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/skull-light.gif" />
+  <source media="(prefers-color-scheme: dark)"  srcset="assets/skull-dark.gif" />
+  <img src="assets/skull-dark.gif" alt="ascii skull" width="300" />
+</picture>
+
+<br/><br/>
+
 <!-- Typing banner -->
 <a href="https://ismailbarakat.dev">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=30&pause=900&color=00FF41&center=true&vCenter=true&width=820&height=70&lines=%24+whoami;Ismail+Barakat+%E2%80%94+Full+Stack+%2F+Mobile+%2F+IoT;Cybersecurity+%C2%B7+AI+%C2%B7+Open+Source;Building+end-to-end%2C+shipping+for+real." alt="typing banner" />
@@ -130,6 +139,25 @@ ismail@brainos:~$ cat ./profile.json
 <br/>
 
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=proismamaster&hide_border=true&background=0d1117&stroke=00ff41&ring=00ff41&fire=00ff41&currStreakLabel=00ff41&sideLabels=c9d1d9&dates=8b949e&currStreakNum=c9d1d9&sideNums=c9d1d9" alt="streak" />
+
+<br/>
+
+<img src="https://github-profile-trophy.vercel.app/?username=proismamaster&theme=matrix&no-frame=true&no-bg=true&column=7&margin-w=6&margin-h=6" alt="trophies" />
+
+</div>
+
+---
+
+### `> ./activity --graph`
+
+<div align="center">
+
+<!-- Snake dei contributi — si attiva dopo il primo run della GitHub Action -->
+<picture>
+  <source media="(prefers-color-scheme: dark)"  srcset="https://raw.githubusercontent.com/proismamaster/proismamaster/output/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/proismamaster/proismamaster/output/github-snake.svg" />
+  <img src="https://raw.githubusercontent.com/proismamaster/proismamaster/output/github-snake.svg" alt="contribution snake" />
+</picture>
 
 </div>
 
