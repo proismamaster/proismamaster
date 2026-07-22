@@ -95,9 +95,9 @@ ismail@brainos:~$ cat ./profile.json
 > Flowchart builder open source, in crescita.
 > `React` · `Vite` · `open-source`
 
-**🥗 [NutriApp](https://github.com/proismamaster/NutriApp)**
+**🥗 [NutriApp](https://github.com/proismamaster/NutriApp-releases)**
 > App nutrizione con CI installer & release automatiche.
-> `Flutter` · `CI/CD` · `v1.0.0`
+> `desktop` · `CI/CD` · `v1.0.0`
 
 </td>
 <td width="50%" valign="top">
@@ -108,7 +108,7 @@ ismail@brainos:~$ cat ./profile.json
 
 **🚗 [Raspberry Bluetooth Car](https://github.com/proismamaster/Rasberry-Car)**
 > Auto IoT comandata via Bluetooth.
-> `Python` · `Raspberry Pi` · `IoT`
+> `Raspberry Pi` · `Bluetooth` · `IoT`
 
 </td>
 </tr>
