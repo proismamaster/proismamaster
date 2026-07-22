@@ -4,6 +4,15 @@
 
 <div align="center">
 
+<!-- Boot sequence animata (SVG nativo, nessuna dipendenza esterna) -->
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/boot-light.svg" />
+  <source media="(prefers-color-scheme: dark)"  srcset="assets/boot-dark.svg" />
+  <img src="assets/boot-dark.svg" alt="boot sequence" width="520" />
+</picture>
+
+<br/><br/>
+
 <!-- ASCII skull — bg si adatta al tema (nero in dark, bianco in light) -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="assets/skull-light.gif" />
