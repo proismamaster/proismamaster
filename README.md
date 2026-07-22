@@ -130,7 +130,7 @@ ismail@brainos:~$ neofetch
 <div align="center">
 
 <a href="https://github.com/proismamaster?tab=followers"><img src="https://img.shields.io/github/followers/proismamaster?style=for-the-badge&logo=github&logoColor=00ff41&label=FOLLOWERS&labelColor=0d1117&color=00ff41" alt="followers" /></a>
-<img src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&logoColor=00ff41&label=PUBLIC%20REPOS&labelColor=0d1117&color=00ff41&query=%24.public_repos&url=https%3A%2F%2Fapi.github.com%2Fusers%2Fproismamaster" alt="repos" />
+<img src="https://img.shields.io/badge/PUBLIC%20REPOS-8-00ff41?style=for-the-badge&labelColor=0d1117" alt="repos" />
 <img src="https://img.shields.io/github/last-commit/proismamaster/BaseFlow?style=for-the-badge&logo=git&logoColor=00ff41&label=LAST%20PUSH&labelColor=0d1117&color=00ff41" alt="last commit" />
 
 <br/><br/>
