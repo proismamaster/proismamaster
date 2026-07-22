@@ -164,9 +164,27 @@ ismail@brainos:~$ neofetch
 
 <div align="center">
 
-<a href="https://ismailbarakat.dev"><img src="https://img.shields.io/badge/Portfolio-00ff41?style=for-the-badge&logo=firefoxbrowser&logoColor=0d1117" /></a>
-<a href="https://www.linkedin.com/in/ismail-barakat-7240b63b7"><img src="https://img.shields.io/badge/LinkedIn-00ff41?style=for-the-badge&logo=linkedin&logoColor=0d1117" /></a>
-<a href="mailto:ismail@ismailbarakat.dev"><img src="https://img.shields.io/badge/Email-00ff41?style=for-the-badge&logo=gmail&logoColor=0d1117" /></a>
+<a href="https://ismailbarakat.dev">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Portfolio-ffffff?style=for-the-badge&logo=firefoxbrowser&logoColor=0d6e28" />
+    <source media="(prefers-color-scheme: dark)"  srcset="https://img.shields.io/badge/Portfolio-0d1117?style=for-the-badge&logo=firefoxbrowser&logoColor=00ff41" />
+    <img src="https://img.shields.io/badge/Portfolio-0d1117?style=for-the-badge&logo=firefoxbrowser&logoColor=00ff41" alt="portfolio" />
+  </picture>
+</a>
+<a href="https://www.linkedin.com/in/ismail-barakat-7240b63b7">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/LinkedIn-ffffff?style=for-the-badge&logo=linkedin&logoColor=0A66C2" />
+    <source media="(prefers-color-scheme: dark)"  srcset="https://img.shields.io/badge/LinkedIn-0d1117?style=for-the-badge&logo=linkedin&logoColor=0A66C2" />
+    <img src="https://img.shields.io/badge/LinkedIn-0d1117?style=for-the-badge&logo=linkedin&logoColor=0A66C2" alt="linkedin" />
+  </picture>
+</a>
+<a href="mailto:ismail@ismailbarakat.dev">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Email-ffffff?style=for-the-badge&logo=gmail&logoColor=EA4335" />
+    <source media="(prefers-color-scheme: dark)"  srcset="https://img.shields.io/badge/Email-0d1117?style=for-the-badge&logo=gmail&logoColor=EA4335" />
+    <img src="https://img.shields.io/badge/Email-0d1117?style=for-the-badge&logo=gmail&logoColor=EA4335" alt="email" />
+  </picture>
+</a>
 
 </div>
 
