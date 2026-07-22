@@ -165,8 +165,8 @@ ismail@brainos:~$ neofetch
 <div align="center">
 
 <a href="https://ismailbarakat.dev"><img src="https://img.shields.io/badge/Portfolio-00ff41?style=for-the-badge&logo=firefoxbrowser&logoColor=0d1117" /></a>
-<a href="https://www.linkedin.com/in/ismail-barakat-7240b63b7"><img src="https://img.shields.io/badge/LinkedIn-0d1117?style=for-the-badge&logo=linkedin&logoColor=0A66C2" /></a>
-<a href="mailto:ismail@ismailbarakat.dev"><img src="https://img.shields.io/badge/Email-0d1117?style=for-the-badge&logo=gmail&logoColor=EA4335" /></a>
+<a href="https://www.linkedin.com/in/ismail-barakat-7240b63b7"><img src="https://img.shields.io/badge/LinkedIn-00ff41?style=for-the-badge&logo=linkedin&logoColor=0d1117" /></a>
+<a href="mailto:ismail@ismailbarakat.dev"><img src="https://img.shields.io/badge/Email-00ff41?style=for-the-badge&logo=gmail&logoColor=0d1117" /></a>
 
 </div>
 
