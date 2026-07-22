@@ -66,42 +66,18 @@ ismail@brainos:~$ neofetch
 
 ### `> ./stack --list`
 
-**Frontend**
-<p>
-  <img src="https://img.shields.io/badge/React_19-0d1117?style=for-the-badge&logo=react&logoColor=61DAFB" />
-  <img src="https://img.shields.io/badge/Vue.js-0d1117?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D" />
-  <img src="https://img.shields.io/badge/Next.js-0d1117?style=for-the-badge&logo=nextdotjs&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vite-0d1117?style=for-the-badge&logo=vite&logoColor=646CFF" />
-  <img src="https://img.shields.io/badge/Tailwind-0d1117?style=for-the-badge&logo=tailwindcss&logoColor=38BDF8" />
-</p>
+<div align="center">
 
-**Backend & Data**
-<p>
-  <img src="https://img.shields.io/badge/Node.js-0d1117?style=for-the-badge&logo=nodedotjs&logoColor=339933" />
-  <img src="https://img.shields.io/badge/Express-0d1117?style=for-the-badge&logo=express&logoColor=white" />
-  <img src="https://img.shields.io/badge/PHP-0d1117?style=for-the-badge&logo=php&logoColor=777BB4" />
-  <img src="https://img.shields.io/badge/MySQL-0d1117?style=for-the-badge&logo=mysql&logoColor=4479A1" />
-  <img src="https://img.shields.io/badge/SQLite-0d1117?style=for-the-badge&logo=sqlite&logoColor=003B57" />
-</p>
+<sub>**languages**</sub><br/>
+<img src="https://skillicons.dev/icons?i=python,c,dart,js,ts,php,java,html,css&theme=dark&perline=9" alt="languages" />
 
-**Mobile & Languages**
-<p>
-  <img src="https://img.shields.io/badge/Flutter-0d1117?style=for-the-badge&logo=flutter&logoColor=02569B" />
-  <img src="https://img.shields.io/badge/Dart-0d1117?style=for-the-badge&logo=dart&logoColor=0175C2" />
-  <img src="https://img.shields.io/badge/Python-0d1117?style=for-the-badge&logo=python&logoColor=FFD43B" />
-  <img src="https://img.shields.io/badge/C-0d1117?style=for-the-badge&logo=c&logoColor=A8B9CC" />
-  <img src="https://img.shields.io/badge/JavaScript-0d1117?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
-  <img src="https://img.shields.io/badge/Java-0d1117?style=for-the-badge&logo=openjdk&logoColor=white" />
-</p>
+<sub>**frameworks · mobile · data**</sub><br/>
+<img src="https://skillicons.dev/icons?i=react,vue,nextjs,vite,tailwind,nodejs,express,flutter,mysql,sqlite&theme=dark&perline=10" alt="frameworks" />
 
-**IoT · DevOps · Tools**
-<p>
-  <img src="https://img.shields.io/badge/Arduino-0d1117?style=for-the-badge&logo=arduino&logoColor=00979D" />
-  <img src="https://img.shields.io/badge/Raspberry_Pi-0d1117?style=for-the-badge&logo=raspberrypi&logoColor=A22846" />
-  <img src="https://img.shields.io/badge/Linux-0d1117?style=for-the-badge&logo=linux&logoColor=FCC624" />
-  <img src="https://img.shields.io/badge/Docker-0d1117?style=for-the-badge&logo=docker&logoColor=2496ED" />
-  <img src="https://img.shields.io/badge/Git-0d1117?style=for-the-badge&logo=git&logoColor=F05032" />
-</p>
+<sub>**iot · devops · tools**</sub><br/>
+<img src="https://skillicons.dev/icons?i=arduino,raspberrypi,linux,bash,docker,git,github,gitlab,vscode&theme=dark&perline=9" alt="tools" />
+
+</div>
 
 ---
 
@@ -144,16 +120,13 @@ ismail@brainos:~$ neofetch
 
 <div align="center">
 
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=proismamaster&show_icons=true&hide_border=true&count_private=true&include_all_commits=true&title_color=00ff41&icon_color=00ff41&text_color=c9d1d9&bg_color=0d1117" alt="stats" />
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=proismamaster&layout=compact&hide_border=true&langs_count=8&title_color=00ff41&text_color=c9d1d9&bg_color=0d1117" alt="top langs" />
+<a href="https://github.com/proismamaster?tab=followers"><img src="https://img.shields.io/github/followers/proismamaster?style=for-the-badge&logo=github&logoColor=00ff41&label=FOLLOWERS&labelColor=0d1117&color=00ff41" alt="followers" /></a>
+<img src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&logoColor=00ff41&label=PUBLIC%20REPOS&labelColor=0d1117&color=00ff41&query=%24.public_repos&url=https%3A%2F%2Fapi.github.com%2Fusers%2Fproismamaster" alt="repos" />
+<img src="https://img.shields.io/github/last-commit/proismamaster/BaseFlow?style=for-the-badge&logo=git&logoColor=00ff41&label=LAST%20PUSH&labelColor=0d1117&color=00ff41" alt="last commit" />
 
-<br/>
+<br/><br/>
 
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=proismamaster&hide_border=true&background=0d1117&stroke=00ff41&ring=00ff41&fire=00ff41&currStreakLabel=00ff41&sideLabels=c9d1d9&dates=8b949e&currStreakNum=c9d1d9&sideNums=c9d1d9" alt="streak" />
-
-<br/>
-
-<img src="https://github-profile-trophy.vercel.app/?username=proismamaster&theme=matrix&no-frame=true&no-bg=true&column=7&margin-w=6&margin-h=6" alt="trophies" />
 
 </div>
 
