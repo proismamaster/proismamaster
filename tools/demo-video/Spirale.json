@@ -1,0 +1,60 @@
+{
+ "author": "Ismail Barakat",
+ "variables": [
+  {
+   "name": "lato",
+   "type": "int",
+   "value": 0
+  },
+  {
+   "name": "i",
+   "type": "int",
+   "value": 0
+  }
+ ],
+ "nodes": [
+  {
+   "type": "start",
+   "info": "",
+   "next": "1"
+  },
+  {
+   "type": "pen",
+   "info": "down;#7c3aed;3",
+   "next": "2"
+  },
+  {
+   "type": "assign",
+   "info": "lato = 4",
+   "next": "3"
+  },
+  {
+   "type": "for",
+   "info": "i = 1; i <= 36; i += 1",
+   "next": {
+    "true": "4",
+    "false": "7"
+   }
+  },
+  {
+   "type": "forward",
+   "info": "lato",
+   "next": "5"
+  },
+  {
+   "type": "turn",
+   "info": "right;89",
+   "next": "6"
+  },
+  {
+   "type": "assign",
+   "info": "lato = lato + 7",
+   "next": "3"
+  },
+  {
+   "type": "end",
+   "info": "",
+   "next": null
+  }
+ ]
+}
