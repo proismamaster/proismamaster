@@ -96,9 +96,9 @@ ismail@brainos:~$ neofetch
 <tr>
 <td width="50%" valign="top">
 
- [BaseFlow](https://github.com/proismamaster/BaseFlow)
-> Flowchart builder open source, in crescita.
-> `React` · `Vite` · `open-source`
+ [BaseFlow](https://github.com/proismamaster/BaseFlow) — [**▶ demo**](#-demo---project-baseflow)
+> Editor di diagrammi di flusso che li esegue davvero e li traduce in codice.
+> `Electron` · `Capacitor` · `open-source`
 
  [NutriApp](https://github.com/proismamaster/NutriApp-releases)
 > App nutrizione con CI installer & release automatiche.
@@ -121,6 +121,37 @@ ismail@brainos:~$ neofetch
 
 <div align="center">
   <sub>↳ e altro su <a href="https://github.com/proismamaster?tab=repositories">github.com/proismamaster</a> · portfolio live su <a href="https://ismailbarakat.dev">ismailbarakat.dev</a></sub>
+</div>
+
+---
+
+### `> ./demo --project baseflow`
+
+<div align="center">
+
+<video
+  src="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/baseflow-demo.mp4"
+  poster="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/baseflow-demo-poster.jpg"
+  width="820" controls muted loop>
+</video>
+
+<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/baseflow-demo.mp4">apri il video</a> · 88s, senza audio</sub>
+
+</div>
+
+**BaseFlow** è un editor di diagrammi di flusso che non si limita a disegnarli.
+Costruisci il diagramma a blocchi — input/output, assegnazioni, `if`, cicli,
+grafica tartaruga — e poi lo **esegui**: il nodo attivo si illumina, le variabili
+si aggiornano in tempo reale e la tartaruga disegna quello che il tuo algoritmo
+le dice di disegnare. Lo stesso diagramma si esporta in **Python, JavaScript, C,
+C++ e Java**, o come PNG e PDF.
+
+Gira su desktop (Windows, macOS, Linux), su Android e nel browser come PWA:
+stesso codice, stessi file `.bflow`. Gli installer si costruiscono da soli su
+GitHub Actions a ogni tag.
+
+<div align="center">
+  <sub>↳ codice su <a href="https://github.com/proismamaster/BaseFlow">github.com/proismamaster/BaseFlow</a> · sorgenti del video in <a href="tools/demo-video">tools/demo-video</a></sub>
 </div>
 
 ---
