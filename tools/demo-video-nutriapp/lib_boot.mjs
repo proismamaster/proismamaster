@@ -23,3 +23,13 @@ export async function wire(ctx) {
   });
   await ctx.route('https://accounts.google.com/**', r => r.abort());
 }
+
+// SCANSIONE DEL CODICE A BARRE: non e' registrabile da qui, e non e' un limite
+// aggirabile. Il build Flutter Web di NutriApp NON contiene alcuna
+// implementazione dello scanner (nessun mobile_scanner, nessun zxing, nessun
+// riferimento a BarcodeDetector nel bundle): il pulsante esiste ma su web
+// fallisce sempre con "Errore durante la scansione". E' una funzione solo
+// Android. Un finto BarcodeDetector iniettato nella pagina e' stato provato e
+// non cambia nulla, perche' non e' quella l'API che l'app chiama.
+// Nel video la scansione e' quindi rappresentata dal campo "Codice a Barre
+// (opzionale)" della scheda alimento, che invece esiste davvero anche su web.

@@ -8,18 +8,18 @@ set -uo pipefail
 
 D="$(cd "$(dirname "$0")" && pwd)"
 FF="${FF:-ffmpeg}"
-SRC=$(ls "$D"/raw/*.webm | head -1)          # durata 113.96
+SRC=$(ls "$D"/raw/*.webm | head -1)          # durata 141.24
 
 #      inizio    fine      velocita'
-A_IN=2.20;   A_OUT=6.20;    A_SPD=1.00   # cartello di apertura
-B_IN=16.30;  B_OUT=27.00;   B_SPD=1.15   # lingua + accesso
-C_IN=27.00;  C_OUT=47.00;   C_SPD=1.50   # dashboard: calorie e macro
-D_IN=47.00;  D_OUT=57.50;   D_SPD=1.40   # calendario
-E_IN=57.50;  E_OUT=78.00;   E_SPD=1.60   # statistiche + scale temporali
-F_IN=78.00;  F_OUT=96.00;   F_SPD=1.30   # grafico a barre delle calorie
-G_IN=96.00;  G_OUT=103.50;  G_SPD=1.50   # distribuzione macronutrienti
-H_IN=103.50; H_OUT=110.30;  H_SPD=1.00   # report PDF
-I_IN=111.30; I_OUT=113.90;  I_SPD=0.47   # cartello finale (fermo: rallentarlo non si vede)
+A_IN=2.20;   A_OUT=6.40;    A_SPD=1.00   # cartello di apertura (l'accesso avviene dietro)
+B_IN=30.00;  B_OUT=35.50;   B_SPD=1.00   # il diario di partenza
+C_IN=35.50;  C_OUT=55.00;   C_SPD=1.50   # Aggiungi + ricerca per nome
+D_IN=55.00;  D_OUT=78.00;   D_SPD=1.60   # scheda alimento, pasto, porzione
+E_IN=78.00;  E_OUT=88.00;   E_SPD=1.40   # grassi, vitamine, minerali
+F_IN=88.00;  F_OUT=108.00;  F_SPD=1.50   # AGGIUNGI e diario aggiornato
+G_IN=108.00; G_OUT=128.00;  G_SPD=1.50   # ricette
+H_IN=128.00; H_OUT=138.00;  H_SPD=1.70   # sguardo ai grafici
+I_IN=138.80; I_OUT=141.20;  I_SPD=0.50   # cartello finale (fermo)
 
 read -r TOTAL A_DUR <<<"$(python3 -c "
 s=[($A_OUT-$A_IN)/$A_SPD, ($B_OUT-$B_IN)/$B_SPD, ($C_OUT-$C_IN)/$C_SPD,
@@ -54,7 +54,7 @@ filter="
   -movflags +faststart -an "$D/nutriapp-demo.mp4" || exit 1
 
 "$FF" -y -hide_banner -loglevel error -i "$D/nutriapp-demo.mp4" \
-  -ss 55 -frames:v 1 -q:v 2 "$D/nutriapp-demo-poster.jpg" || exit 1
+  -ss 46 -frames:v 1 -q:v 2 "$D/nutriapp-demo-poster.jpg" || exit 1
 
 ls -la "$D"/nutriapp-demo.mp4 "$D"/nutriapp-demo-poster.jpg
 "$FF" -hide_banner -i "$D/nutriapp-demo.mp4" 2>&1 | grep -E "Duration|Stream"

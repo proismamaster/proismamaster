@@ -84,6 +84,69 @@ ALIMENTI = {
     ],
 }
 
+# Catalogo aggiuntivo, cercabile per nome: serve a far vedere una ricerca con
+# piu' risultati invece di un solo match.
+CATALOGO = [
+    # nome,                        kcal, carb, prot, fat, fib, zuc, acqua, marca
+    ("Pasta di semola",             353, 71.2, 12.5,  1.5,  3.0,  3.2, 11, ""),
+    ("Pasta integrale",             348, 66.0, 13.4,  2.5,  8.0,  3.0, 10, ""),
+    ("Pasta all'uovo",              368, 70.0, 13.0,  3.5,  2.9,  2.0,  9, ""),
+    ("Penne Rigate",                359, 71.5, 12.0,  1.6,  3.1,  3.0, 11, "Barilla"),
+    ("Pane integrale",              247, 41.0,  9.0,  3.4,  7.0,  4.3, 38, ""),
+    ("Petto di pollo",              165,  0.0, 31.0,  3.6,  0.0,  0.0, 65, ""),
+    ("Pomodori pelati",              32,  6.0,  1.3,  0.3,  1.4,  4.5, 91, ""),
+    ("Riso basmati",                349, 77.0,  7.5,  0.9,  1.3,  0.1, 12, ""),
+    ("Salmone al forno",            208,  0.0, 20.4, 13.4,  0.0,  0.0, 64, ""),
+    ("Yogurt greco 0%",              59,  3.6, 10.0,  0.4,  0.0,  3.6, 85, ""),
+    ("Mandorle",                    579, 21.6, 21.2, 49.9, 12.5,  4.4,  4, ""),
+    ("Uova",                        143,  0.7, 12.6,  9.5,  0.0,  0.4, 76, ""),
+    ("Olio extravergine d'oliva",   884,  0.0,  0.0,100.0,  0.0,  0.0,  0, ""),
+    ("Parmigiano Reggiano",         392,  0.0, 33.0, 28.4,  0.0,  0.0, 30, ""),
+    ("Zucchine",                     17,  3.1,  1.2,  0.3,  1.0,  2.5, 95, ""),
+]
+
+# Prodotto restituito dalla scansione del codice a barre.
+BARCODE_DEMO = "8076809513692"
+
+RICETTE = [
+    {
+        "id": 1, "recipe_name": "Pasta al pesto di zucchine", "portion": "2", "is_favorite": 1,
+        "notes": "Zucchine saltate, frullate con parmigiano e olio. Pronta in 15 minuti.",
+        "ingredients": [
+            {"food_name": "Pasta di semola", "unit": "g", "weight_g": 160,
+             "calories": 564.8, "carbs": 113.9, "proteins": 20.0, "fats": 2.4},
+            {"food_name": "Zucchine", "unit": "g", "weight_g": 200,
+             "calories": 34.0, "carbs": 6.2, "proteins": 2.4, "fats": 0.6},
+            {"food_name": "Parmigiano Reggiano", "unit": "g", "weight_g": 30,
+             "calories": 117.6, "carbs": 0.0, "proteins": 9.9, "fats": 8.5},
+            {"food_name": "Olio extravergine d'oliva", "unit": "g", "weight_g": 15,
+             "calories": 132.6, "carbs": 0.0, "proteins": 0.0, "fats": 15.0},
+        ],
+    },
+    {
+        "id": 2, "recipe_name": "Pollo e riso basmati", "portion": "1", "is_favorite": 0,
+        "notes": "Il pranzo da meal prep: si prepara la domenica e regge tre giorni.",
+        "ingredients": [
+            {"food_name": "Petto di pollo", "unit": "g", "weight_g": 180,
+             "calories": 297.0, "carbs": 0.0, "proteins": 55.8, "fats": 6.5},
+            {"food_name": "Riso basmati", "unit": "g", "weight_g": 80,
+             "calories": 279.2, "carbs": 61.6, "proteins": 6.0, "fats": 0.7},
+            {"food_name": "Olio extravergine d'oliva", "unit": "g", "weight_g": 10,
+             "calories": 88.4, "carbs": 0.0, "proteins": 0.0, "fats": 10.0},
+        ],
+    },
+    {
+        "id": 3, "recipe_name": "Colazione proteica", "portion": "1", "is_favorite": 1,
+        "notes": "Yogurt greco, mandorle e miele.",
+        "ingredients": [
+            {"food_name": "Yogurt greco 0%", "unit": "g", "weight_g": 200,
+             "calories": 118.0, "carbs": 7.2, "proteins": 20.0, "fats": 0.8},
+            {"food_name": "Mandorle", "unit": "g", "weight_g": 20,
+             "calories": 115.8, "carbs": 4.3, "proteins": 4.2, "fats": 10.0},
+        ],
+    },
+]
+
 MICRO = ["arsenic", "boron", "calcium", "chloride", "choline", "chromium", "cobalt",
          "copper", "fluoride", "fluorine", "iodine", "iron", "magnesium", "manganese",
          "molybdenum", "phosphorus", "potassium", "selenium", "silicon", "sodium",
@@ -179,6 +242,26 @@ def totali(giorno_iso, meal_type=None):
     return t
 
 
+_seq = [0]
+
+
+def prodotto(nome, kcal, carb, prot, fat, fib, zuc, acq, brand="", barcode="", source="CREA"):
+    """Un alimento nella forma che si aspetta la schermata di ricerca/scansione."""
+    _seq[0] += 1
+    return {
+        "id": _seq[0], "name": nome, "name_en": nome, "food_name": nome,
+        "brand": brand, "barcode": barcode, "source": source,
+        "base_weight_g": 100, "serving_quantity": 100,
+        "calories": kcal, "carbs": carb, "proteins": prot, "fats": fat,
+        "fibers": fib, "sugars": zuc, "water": acq,
+        "saturated_fats": round(fat * 0.28, 1),
+        "monounsaturated_fats": round(fat * 0.45, 1),
+        "polyunsaturated_fats": round(fat * 0.22, 1),
+        "trans_fats": 0.0, "cholesterol": 0.0,
+        **{k: 0.0 for k in MICRO}, **{k: 0.0 for k in VITAMINE},
+    }
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *a):
         pass
@@ -215,30 +298,22 @@ class Handler(BaseHTTPRequestHandler):
             return self._json([dict(v, user_mail=mail) for v in VOCI])
 
         if name == "get_recipes.php":
-            return self._json({"status": "success", "recipes": []})
+            return self._json(RICETTE)
 
         if name == "get_custom_foods.php":
             return self._json({"status": "success", "foods": []})
 
+        if name == "get_product_by_barcode.php":
+            code = (q.get("barcode") or [BARCODE_DEMO])[0]
+            return self._json({"status": "success", "product": prodotto(
+                "Penne Rigate", 359, 71.5, 12.0, 1.6, 3.1, 3.0, 11,
+                brand="Barilla", barcode=code, source="OpenFoodFacts")})
+
         if name == "search_crea_foods.php":
             termine = (q.get("query") or [""])[0].lower()
-            trovati = []
-            for pasto, lista in ALIMENTI.items():
-                for nome, kcal, carb, prot, fat, fib, zuc, acq in lista:
-                    if termine in nome.lower():
-                        trovati.append({
-                            "id": len(trovati) + 1, "name": nome, "name_en": nome,
-                            "food_name": nome, "brand": "", "barcode": "",
-                            "source": "CREA", "base_weight_g": 100,
-                            "serving_quantity": 100,
-                            "calories": kcal, "carbs": carb, "proteins": prot,
-                            "fats": fat, "fibers": fib, "sugars": zuc, "water": acq,
-                            "saturated_fats": round(fat * 0.28, 1),
-                            "monounsaturated_fats": round(fat * 0.45, 1),
-                            "polyunsaturated_fats": round(fat * 0.22, 1),
-                            "trans_fats": 0.0, "cholesterol": 0.0,
-                            **{k: 0.0 for k in MICRO}, **{k: 0.0 for k in VITAMINE},
-                        })
+            trovati = [prodotto(n, kc, cb, pr, ft, fb, zu, ac, brand=mk)
+                       for n, kc, cb, pr, ft, fb, zu, ac, mk in CATALOGO
+                       if termine in n.lower() or termine in mk.lower()]
             return self._json({"status": "success", "foods": trovati})
 
         return self._json({"status": "success"})
@@ -251,6 +326,23 @@ class Handler(BaseHTTPRequestHandler):
             corpo = json.loads(raw)
         except Exception:
             corpo = {}
+
+        if name == "save_entry.php":
+            # L'app invia la voce come JSON. Va aggiunta davvero allo storico,
+            # altrimenti la dashboard non si aggiorna dopo il salvataggio e la
+            # demo perde il suo momento migliore.
+            v = dict(corpo)
+            v["id"] = max([x["id"] for x in VOCI], default=0) + 1
+            data = str(v.get("entry_date") or date.today().isoformat())[:10]
+            v["entry_date"] = data
+            v["user_mail"] = v.get("user_mail") or PROFILO["email"]
+            for k in ("calories", "carbs", "proteins", "fats", "fibers", "sugars", "water", "weight_g"):
+                try:
+                    v[k] = float(v.get(k) or 0)
+                except (TypeError, ValueError):
+                    v[k] = 0.0
+            VOCI.append(v)
+            return self._json({"status": "success", "id": v["id"]})
 
         if name == "login.php":
             mail = corpo.get("email") or PROFILO["email"]

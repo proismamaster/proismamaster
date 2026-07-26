@@ -166,19 +166,21 @@ GitHub Actions a ogni tag.
   width="820" controls muted loop>
 </video>
 
-<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4">apri il video</a> · 78s, senza audio</sub>
+<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4">apri il video</a> · 81s, senza audio</sub>
 
 </div>
 
 **NutriApp** è un'app di nutrizione scritta in **Flutter**, nata come progetto di
-squadra con me team lead di quattro persone. Registri quello che mangi e l'app
-tiene il conto: anello delle calorie rimanenti sull'obiettivo, barre di
-carboidrati, proteine e grassi, e il dettaglio fino ai micronutrienti.
+squadra con me team lead di quattro persone. Il punto è che registrare un pasto
+deve costare pochi tocchi: **cerchi l'alimento per nome** sul database CREA (o ne
+scansioni il codice a barre), si apre la scheda **già compilata**, scegli il pasto
+e la porzione, e i valori si ricalcolano sul peso. Sotto ai macro ci sono grassi
+nel dettaglio, **vitamine e minerali**, aperti solo se ti servono.
 
-Sopra ci sta la parte che serve davvero nel tempo: un **calendario** di tutte le
-giornate registrate, **grafici storici** su scala giornaliera, settimanale,
-mensile e annuale, e l'export di un **report PDF** da portare al nutrizionista.
-Gira su Android e Windows, con backend PHP.
+Quello che cucini spesso diventa una **ricetta**: un insieme di ingredienti coi
+suoi valori, da registrare in un tocco invece di rifare la somma ogni volta. E
+tutto lo storico si legge come **grafici** giornalieri, settimanali, mensili e
+annuali, esportabili in un **report PDF**. Gira su Android e Windows, backend PHP.
 
 > Il video è registrato con un backend di prova e dati inventati — serve a
 > mostrare l'interfaccia, non consumi reali. Il badge "Dati dimostrativi" resta

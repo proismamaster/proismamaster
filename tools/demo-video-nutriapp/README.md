@@ -5,6 +5,15 @@ da telefono** dell'app vera. NutriApp è scritta in Flutter, e quello che viene
 registrato è il suo **build Flutter Web** (lo stesso che il portfolio serve su
 `/nutriapp/`), caricato in un `<iframe>` largo 390px dentro una cornice di device.
 
+## Cosa mostra
+
+Il taglio è volutamente sbilanciato sul **come si aggiunge un alimento**, che è
+il gesto che si fa dieci volte al giorno: ricerca per nome, scheda già compilata,
+scelta del pasto e della porzione, sezioni di grassi/vitamine/minerali, e il
+salvataggio che fa scendere le calorie rimanenti nel diario. Poi le ricette.
+L'accesso avviene **dietro il cartello di apertura** e nel video non si vede;
+i grafici prendono sei secondi in coda.
+
 ## ⚠️ I dati sono finti, e si vede
 
 Il backend vero (`progetti.galileicrema.org`) non è raggiungibile dall'ambiente di
@@ -38,6 +47,16 @@ Tutte e tre stanno in `lib_boot.mjs`:
 
 Serve anche `locale: 'it-IT'` sul contesto: con un locale che Dart non riconosce
 l'app muore all'avvio con `Incorrect locale information provided`.
+
+## La scansione del codice a barre non è registrabile
+
+Il build Flutter Web **non contiene alcuna implementazione dello scanner**:
+niente `mobile_scanner`, niente zxing, nessun riferimento a `BarcodeDetector` nel
+bundle. Il pulsante c'è ma su web fallisce sempre con *"Errore durante la
+scansione"* — è una funzione solo Android. Iniettare un finto `BarcodeDetector`
+è stato provato e non serve, perché non è quella l'API che l'app chiama.
+Nel video la parte "codice a barre" è quindi il campo **Codice a Barre
+(opzionale)** della scheda alimento, che invece esiste davvero anche su web.
 
 ## Scroll: Flutter ignora il mouse
 
