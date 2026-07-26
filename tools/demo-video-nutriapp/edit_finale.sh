@@ -74,9 +74,11 @@ INTER="-c:v libx264 -crf 16 -preset veryfast -r 30 -vsync cfr -pix_fmt yuv420p"
 
 rm -f "$D/parte1.mp4" "$D/parte2.mp4"
 
-# Poster: la scheda del prodotto con la foto vera
+# Poster: la scheda del prodotto con la foto vera, la marca, il punteggio NOVA e
+# gli allergeni. A 17s la scheda e' gia' scrollata sui macronutrienti e la foto
+# non si vede piu': come anteprima diceva molto meno.
 "$FF" -y -hide_banner -loglevel error -i "$D/nutriapp-demo.mp4" \
-  -ss 17 -frames:v 1 -q:v 2 "$D/nutriapp-demo-poster.jpg" || exit 1
+  -ss 12.8 -frames:v 1 -q:v 2 "$D/nutriapp-demo-poster.jpg" || exit 1
 
 ls -la "$D"/nutriapp-demo.mp4 "$D"/nutriapp-demo-poster.jpg
 "$FF" -hide_banner -i "$D/nutriapp-demo.mp4" 2>&1 | grep -E "Duration|Stream"
