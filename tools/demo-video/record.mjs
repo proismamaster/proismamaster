@@ -1,9 +1,13 @@
-import { chromium } from 'playwright';
+import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
 import fs from 'fs';
 import path from 'path';
 
-const D = path.dirname(new URL(import.meta.url).pathname) + '/';
-const W = 1440, H = 810;
+const D = '/tmp/claude-0/-home-user-proismamaster/665b245a-a4c7-5022-9652-b85d6823b19c/scratchpad/demo/';
+// 1920x1080 nativi: la pagina viene DAVVERO disegnata a questa misura, e' li'
+// che sta il guadagno di nitidezza. Non serve (anzi non funziona) alzare il
+// deviceScaleFactor: Playwright non riscala il fotogramma catturato, lo
+// incolla in un angolo del video lasciando il resto grigio.
+const W = 1920, H = 1080;
 const APP = 'http://127.0.0.1:8899/index.html';
 const overlaySrc = fs.readFileSync(D + 'overlay.js', 'utf8');
 const spiral = fs.readFileSync(D + 'Spirale.json', 'utf8');
@@ -46,6 +50,16 @@ async function typeInto(sel, text, delay = 50) {
   await p.locator(sel).type(text, { delay });
 }
 
+// Il diagramma e' disegnato su <canvas id="canvas">, non nel DOM: non ci sono
+// elementi da cercare per i nodi. Il flusso pero' e' centrato nella tela, e i
+// nodi partono dall'alto — quindi la x si ricava dal centro del canvas (879 a
+// 1440, 1119 a 1920) e la y resta quella misurata, identica alle due misure.
+async function canvasX() {
+  const r = await p.locator('#canvas').boundingBox();
+  if (!r) throw new Error('tela del diagramma non trovata');
+  return Math.round(r.x + r.width / 2);
+}
+
 // Sposta/ridimensiona il pannello Turtle Graphics e ridisegna la tela alla nuova misura.
 async function turtlePanel(left, top, w, h) {
   await p.evaluate(([l, t, w, h]) => {
@@ -80,13 +94,14 @@ mark('editor');
 await p.evaluate(() => __bfDemo.cursorShow(true));
 await say('Si parte da un diagramma vuoto: <b>Start</b> e <b>End</b>.', 1900);
 await say('Clicca su una freccia per inserire un blocco…', 1500);
-await click(879, 132, { post: 800 });
+const CX = await canvasX();
+await click(CX, 132, { post: 800 });
 await say('…scegliendo fra <b>I/O</b>, <b>assegnazioni</b>, <b>if</b>, <b>cicli</b> e <b>grafica</b>.', 3000);
 
 // 3) CONFIGURO UN BLOCCO OUTPUT --------------------------------------------
 await clickSel('#output-btn', { post: 1000 });
 await say('Doppio click sul blocco per configurarlo.', 1400);
-await click(879, 164, { post: 800, dbl: true });
+await click(CX, 164, { post: 800, dbl: true });
 await typeInto('#edit-node-input', '"Ciao da BaseFlow!"');
 await sleep(500);
 await clickSel('#save-node-info', { post: 800 });
@@ -111,7 +126,7 @@ await say('Un ciclo <b>for</b>: avanti, gira di 89°, allunga il lato.', 3000);
 await sayOff();
 
 // pannello grafico nella colonna libera a sinistra: non copre nulla
-await turtlePanel(336, 178, 306, 452);
+await turtlePanel(448, 237, 408, 603);        // colonna libera a sinistra del flusso
 await sleep(500);
 
 // 6) ESECUZIONE ANIMATA (verrà accelerata in montaggio) ---------------------
@@ -137,11 +152,11 @@ mark('runEnd');
 await sleep(600);
 
 // 7) IL DISEGNO PRENDE LA SCENA --------------------------------------------
-await turtlePanel(430, 74, 660, 664);
+await turtlePanel(600, 99, 827, 813);         // il disegno prende la scena, sopra la fascia dei sottotitoli
 await sleep(700);
 await say('Ogni figura nasce da un <b>algoritmo</b>, non da un disegno.', 3000);
 await sayOff();
-await turtlePanel(336, 178, 306, 452);
+await turtlePanel(448, 237, 408, 603);        // colonna libera a sinistra del flusso
 await sleep(400);
 
 // 8) TRADUZIONE IN CODICE ---------------------------------------------------

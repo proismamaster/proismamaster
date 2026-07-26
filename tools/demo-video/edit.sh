@@ -12,20 +12,20 @@
 # Se rigeneri le registrazioni, rifai questa verifica prima di fidarti.
 set -uo pipefail
 
-D="$(cd "$(dirname "$0")" && pwd)"
-FF="${FF:-ffmpeg}"
-SRC=$(ls "$D"/raw/*.webm | head -1)        # desktop   (durata 111.80)
-MOB=$(ls "$D"/rawmob/*.webm | head -1)     # telefono  (durata  48.68)
+D=/tmp/claude-0/-home-user-proismamaster/665b245a-a4c7-5022-9652-b85d6823b19c/scratchpad/demo
+FF=/usr/local/lib/python3.11/dist-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2
+SRC=$(ls "$D"/raw/*.webm | head -1)        # desktop   1920x1080 (durata 109.96)
+MOB=$(ls "$D"/rawmob/*.webm | head -1)     # telefono  1920x1080 (durata  48.88)
 
 # inizio    fine      velocita'
-A_IN=2.60;   A_OUT=49.40;   A_SPD=1.40   # cartello di apertura + editing + caricamento
-B_IN=49.40;  B_OUT=88.50;   B_SPD=3.00   # esecuzione animata su desktop
-C_IN=88.50;  C_OUT=107.60;  C_SPD=1.25   # reveal della spirale + export in codice
-M_IN=3.60;   M_OUT=8.60;    M_SPD=1.00   # il telefono entra in scena
-N_IN=8.60;   N_OUT=13.60;   N_SPD=1.00   # parte l'esecuzione, compaiono le piattaforme
-O_IN=13.60;  O_OUT=46.60;   O_SPD=3.40   # la spirale si completa sul telefono
-P_IN=46.60;  P_OUT=48.60;   P_SPD=1.00   # tenuta sul quadro completo
-Q_IN=109.40; Q_OUT=111.75;  Q_SPD=0.45   # cartello di chiusura (fermo: rallentarlo non si vede)
+A_IN=3.20;   A_OUT=49.20;   A_SPD=1.40   # cartello di apertura + editing + caricamento
+B_IN=49.20;  B_OUT=88.00;   B_SPD=3.00   # esecuzione animata su desktop
+C_IN=88.00;  C_OUT=106.40;  C_SPD=1.25   # reveal della spirale + export in codice
+M_IN=3.60;   M_OUT=8.90;    M_SPD=1.00   # il telefono entra in scena
+N_IN=8.90;   N_OUT=13.90;   N_SPD=1.00   # parte l'esecuzione, compaiono le piattaforme
+O_IN=13.90;  O_OUT=46.50;   O_SPD=3.40   # la spirale si completa sul telefono
+P_IN=46.50;  P_OUT=48.60;   P_SPD=1.00   # tenuta sul quadro completo
+Q_IN=107.40; Q_OUT=109.75;  Q_SPD=0.45   # cartello di chiusura (fermo: rallentarlo non si vede)
 
 read -r TOTAL C_DUR <<<"$(python3 -c "
 segs=[($A_OUT-$A_IN)/$A_SPD, ($B_OUT-$B_IN)/$B_SPD, ($C_OUT-$C_IN)/$C_SPD,
@@ -36,9 +36,10 @@ C_FADE=$(python3 -c "print(round($C_DUR-0.35, 2))")   # stacco a nero desktop ->
 FADE_OUT=$(python3 -c "print(round($TOTAL-0.9, 2))")
 echo "durata finale attesa: ${TOTAL}s  (fade out a ${FADE_OUT}s)"
 
-# Le due sorgenti hanno risoluzioni diverse (1440x810 e 1280x720): ogni segmento
-# va portato alla stessa misura PRIMA del concat, altrimenti il filtro rifiuta.
-SC="scale=1280:720:flags=lanczos,setsar=1"
+# Le due sorgenti sono gia' 1920x1080 native (la pagina viene disegnata a quella
+# misura, non ingrandita in montaggio): qui lo scale non riduce nulla, serve solo
+# a garantire che i segmenti arrivino al concat con misura e SAR identici.
+SC="scale=1920:1080:flags=lanczos,setsar=1"
 
 filter="
 [0:v]trim=${A_IN}:${A_OUT},setpts=(PTS-STARTPTS)/${A_SPD},$SC[a];
@@ -58,7 +59,7 @@ filter="
 # 1) MP4 H.264 -- sorgente principale per il sito
 "$FF" -y -hide_banner -loglevel error -i "$SRC" -i "$MOB" \
   -filter_complex "$filter" -map "[v]" \
-  -c:v libx264 -profile:v high -level 4.0 -crf 21 -preset slow \
+  -c:v libx264 -profile:v high -level 4.2 -crf 20 -preset slow \
   -movflags +faststart -an "$D/baseflow-demo.mp4" || exit 1
 
 # 2) Poster: fotogramma della spirale completa, per l'attributo poster=""

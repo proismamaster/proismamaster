@@ -1,9 +1,9 @@
-import { chromium } from 'playwright';
+import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
 import fs from 'fs';
 import path from 'path';
 
-const D = path.dirname(new URL(import.meta.url).pathname) + '/';
-const W = 1280, H = 720;
+const D = '/tmp/claude-0/-home-user-proismamaster/665b245a-a4c7-5022-9652-b85d6823b19c/scratchpad/demo/';
+const W = 1920, H = 1080;    // lo schermo del telefono e' reso 1:1 dentro la scena
 const STAGE = 'http://127.0.0.1:8900/stage.html';
 const spiral = fs.readFileSync(D + 'Spirale.json', 'utf8');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
