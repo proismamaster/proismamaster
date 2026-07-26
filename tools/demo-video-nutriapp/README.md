@@ -30,6 +30,32 @@ ffmpeg -i registrazione.mp4 -an -vf "scale=390:854,fps=30" \
   -c:v libvpx-vp9 -crf 28 -b:v 0 telefono.webm
 ```
 
+## Farlo sembrare un video unico
+
+Tre accorgimenti, senza i quali si vede che le sorgenti sono due:
+
+1. **Stesso schermo.** La registrazione del telefono porta la barra di stato di
+   Android (ora, batteria) e la barra gesti in basso; la cattura dal web non ne
+   ha. Vanno ritagliate a monte, quando si converte la clip:
+
+   ```bash
+   ffmpeg -i registrazione.mp4 -an \
+     -vf "crop=390:807:0:31,scale=-2:854,crop=390:854,fps=30" \
+     -c:v libvpx-vp9 -crf 28 -b:v 0 telefono.webm
+   ```
+
+   (31px in alto = barra di stato, ~16px in basso = barra gesti, misurati su
+   quella registrazione: **rimisurali** se ne usi un'altra.)
+2. **Stesso badge** in basso a destra su entrambe le scene, altrimenti il
+   testo cambia a meta' video.
+3. **Niente stacco a nero.** Le due parti si uniscono con uno `xfade`
+   `slideleft`: il telefono e la sua didascalia escono a sinistra e la scena
+   dopo entra da destra, come un cambio di pagina.
+
+⚠️ `xfade` pretende un **frame rate costante**, che non si ottiene dentro una
+sola catena di filtri partendo dai webm di Playwright. Per questo `edit_finale.sh`
+lavora in tre passate: rende le due parti in file intermedi CFR, poi le unisce.
+
 ## Cosa mostra
 
 Il taglio è volutamente sbilanciato sul **come si aggiunge un alimento**, che è

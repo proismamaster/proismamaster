@@ -73,10 +73,10 @@ await fino(25.5);
 mark('salva');
 await scene('', 'Scegli il pasto<br>e la porzione.',
   'Cinquanta grammi: i valori si ricalcolano da soli.');
-await fino(33.6);
+await fino(32.3);   // la dashboard aggiornata compare a ~34.5: la didascalia deve precederla
 await scene('Fatto', 'E il diario<br>si aggiorna.',
   'Centosettantaquattro calorie in piu, e le barre dei macro si muovono.');
-await fino(37.4);
+await fino(36.3);   // si ferma prima che il telefono passi al calendario
 await p.evaluate(() => pausa());
 await sleep(2200);
 mark('fine');

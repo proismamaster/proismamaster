@@ -166,7 +166,7 @@ GitHub Actions a ogni tag.
   width="820" controls muted loop>
 </video>
 
-<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4">apri il video</a> · 62s, senza audio</sub>
+<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4">apri il video</a> · 58s, senza audio</sub>
 
 </div>
 
