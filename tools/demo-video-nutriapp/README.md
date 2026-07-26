@@ -1,10 +1,34 @@
 # Demo video di NutriApp
 
-Sorgenti per rigenerare `assets/demo/nutriapp-demo.mp4`: uno **screencast scriptato
-da telefono** dell'app vera. NutriApp è scritta in Flutter, e quello che viene
-registrato è il suo **build Flutter Web**, caricato in un `<iframe>` largo 390px
-dentro una cornice di device, renderizzato **1:1 a 1920x1080** (nessun downscale,
-quindi il testo resta nitido).
+Sorgenti per rigenerare `assets/demo/nutriapp-demo.mp4`. Il video nasce da **due
+sorgenti**, montate nella stessa cornice di device e con le stesse didascalie:
+
+| parte | cosa | come |
+| --- | --- | --- |
+| 1 (0-35s) | ricerca, ritrovamento e apertura del prodotto, porzione, salvataggio | **registrazione fatta da Ismail su un telefono vero**, riprodotta dentro la cornice da `record_phone.mjs` + `stage_video.html` |
+| 2 (35-62s) | ricette, grafici, cartello finale | build Flutter Web pilotato da `record_parte2.mjs` contro il backend e il database veri |
+
+Il montaggio finale e' `edit_finale.sh`, che legge le due registrazioni.
+
+## Perche' due sorgenti
+
+Le **foto dei prodotti** esistono e nell'app si vedono, ma arrivano live da
+OpenFoodFacts: tutti gli host `*.openfoodfacts.org` sono rifiutati dalla policy
+di rete dell'ambiente di registrazione (403 al gateway, verificato anche via
+WebFetch), e lo scanner del codice a barre non esiste nel build web. Dal
+telefono di Ismail invece si vedono, ed e' per questo che la parte della ricerca
+e della scheda prodotto viene da li'.
+
+L'app nella parte 2 e' lasciata in **inglese** per combaciare con la
+registrazione del telefono.
+
+⚠️ La registrazione del telefono va convertita in **WebM/VP9**: il Chromium di
+Playwright non decodifica H.264.
+
+```bash
+ffmpeg -i registrazione.mp4 -an -vf "scale=390:854,fps=30" \
+  -c:v libvpx-vp9 -crf 28 -b:v 0 telefono.webm
+```
 
 ## Cosa mostra
 
@@ -52,25 +76,14 @@ database reale"*.
 OpenFoodFacts) di quelli nei dump del repo: qui i risultati sono reali ma meno
 numerosi.
 
-## Le foto dei prodotti non ci sono, e non è aggirabile da qui
+## Le foto dei prodotti: ci sono, ma solo nella parte 1
 
-Nell'app la foto compare **solo** lungo il percorso "scansiona il codice a
-barre": è `get_product_by_barcode.php` che interroga OpenFoodFacts in diretta e
-ne restituisce `image_url`. Due muri contemporaneamente:
-
-- tutti gli host `*.openfoodfacts.org` (world, it, images, static) sono rifiutati
-  dalla policy di rete con 403 al gateway — verificato anche via WebFetch;
-- lo scanner non esiste nel build web (vedi sotto), quindi quel percorso non si
-  può nemmeno imboccare.
-
-Iniettare un `image_url` nelle risposte di `search_crea_foods` /
-`search_off_products` **è stato provato e non serve**: le schede raggiungibili
-dalla ricerca non leggono quel campo, quindi resta il segnaposto grigio.
-Su un telefono con rete normale la foto si vede.
-
-Per questo il video apre il prodotto **a marca** (`Riso rosso`, Scotti) e non una
-riga CREA nuda: pur senza foto, la sua scheda porta marca, codice a barre già
-compilato e il pulsante con i dettagli OpenFoodFacts.
+Nel video si vedono perche' quella meta' e' girata su un telefono con rete
+normale. Dall'ambiente di registrazione **non** sono ottenibili: l'app le carica
+solo lungo il percorso di scansione (`get_product_by_barcode.php` interroga
+OpenFoodFacts in diretta), gli host OpenFoodFacts sono bloccati, e iniettare un
+`image_url` nelle risposte di ricerca non serve perche' quelle schede non
+leggono quel campo. Provato, verificato, documentato qui per non riprovarci.
 
 ## La scansione del codice a barre non è registrabile
 

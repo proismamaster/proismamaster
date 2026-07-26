@@ -166,7 +166,7 @@ GitHub Actions a ogni tag.
   width="820" controls muted loop>
 </video>
 
-<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4">apri il video</a> · 81s, senza audio</sub>
+<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4">apri il video</a> · 62s, senza audio</sub>
 
 </div>
 
@@ -182,11 +182,10 @@ suoi valori, da registrare in un tocco invece di rifare la somma ogni volta. E
 tutto lo storico si legge come **grafici** giornalieri, settimanali, mensili e
 annuali, esportabili in un **report PDF**. Gira su Android e Windows, backend PHP.
 
-> Il video gira sul backend PHP del progetto e sul suo database reale (788
-> alimenti con i valori nutrizionali veri); il diario mostrato è però costruito
-> per la demo, non sono consumi reali. Le foto dei prodotti restano segnaposto
-> perché arrivano live da OpenFoodFacts, irraggiungibile dall'ambiente di
-> registrazione.
+> Il video unisce due sorgenti: la prima metà è una **registrazione fatta su un
+> telefono vero** (ricerca, scheda del prodotto con le foto di OpenFoodFacts,
+> salvataggio), la seconda è girata sul backend PHP e sul database reali del
+> progetto. Il diario mostrato è costruito per la demo, non sono consumi reali.
 
 <div align="center">
   <sub>↳ codice su <a href="https://github.com/proismamaster/NutriApp">github.com/proismamaster/NutriApp</a> · installer su <a href="https://github.com/proismamaster/NutriApp-releases/releases">NutriApp-releases</a></sub>

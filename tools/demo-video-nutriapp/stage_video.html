@@ -1,0 +1,126 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>NutriApp — scena demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; }
+  body {
+    background: linear-gradient(150deg, #0f3d24 0%, #1b6b3a 46%, #06301c 100%);
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+    color: #fff; display: flex; align-items: center; gap: 96px; padding: 0 104px;
+  }
+
+  .phone {
+    position: relative; flex: 0 0 auto;
+    width: 414px; height: 878px;
+    border-radius: 52px; padding: 12px;
+    background: linear-gradient(160deg, #2b2b33, #101014);
+    box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.10) inset;
+  }
+  .screen { position: relative; width: 100%; height: 100%; border-radius: 42px; overflow: hidden; background: #fff; }
+  .screen video {
+    width: 390px; height: 854px; display: block; object-fit: cover;
+  }
+  .tap {
+    position: absolute; width: 62px; height: 62px; margin: -31px 0 0 -31px; z-index: 4;
+    border-radius: 50%; border: 4px solid #34d399; background: rgba(52,211,153,.22);
+    opacity: 0; pointer-events: none;
+  }
+  @keyframes tap-pop { 0% { opacity:.95; transform: scale(.35); } 100% { opacity:0; transform: scale(1.25); } }
+  .tap.pop { animation: tap-pop .5s ease-out; }
+
+  .side { flex: 1 1 auto; max-width: 1080px; }
+  .kicker {
+    font-size: 22px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: #6ee7b7; margin-bottom: 18px; min-height: 28px;
+  }
+  h1 { font-size: 74px; font-weight: 800; letter-spacing: -2px; line-height: 1.08; min-height: 82px; }
+  .lede { font-size: 30px; color: #d1fae5; margin-top: 24px; line-height: 1.45; max-width: 900px; min-height: 92px; }
+  .kicker, h1, .lede { transition: opacity .35s ease, transform .35s ease; }
+  .fade { opacity: 0; transform: translateY(8px); }
+
+  .chips { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; }
+  .chip {
+    font-size: 23px; font-weight: 600; padding: 12px 24px; border-radius: 999px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #ecfdf5;
+    opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease;
+  }
+  .chip.on { opacity: 1; transform: none; }
+
+  /* Badge sempre visibile: gli alimenti e i valori nutrizionali sono quelli veri
+     del database del progetto; sono i pasti registrati a essere generati. */
+  .disclaimer {
+    position: fixed; right: 26px; bottom: 24px; z-index: 20;
+    font-size: 18px; font-weight: 600; color: rgba(255,255,255,.62);
+    background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.16);
+    padding: 9px 19px; border-radius: 999px;
+  }
+
+  #card {
+    position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 30px; text-align: center;
+    background: linear-gradient(150deg, #0f3d24 0%, #1b6b3a 46%, #06301c 100%);
+    opacity: 0; transition: opacity .55s ease; pointer-events: none;
+  }
+  #card.on { opacity: 1; }
+  #card .t { font-size: 98px; font-weight: 800; letter-spacing: -1.6px; }
+  #card .s { font-size: 38px; font-weight: 500; color: #d1fae5; max-width: 1180px; line-height: 1.4; }
+  #card .u { font-size: 30px; font-weight: 600; color: #6ee7b7; margin-top: 8px; }
+  #card .chips { justify-content: center; }
+  #card .chip { opacity: 1; transform: none; }
+</style>
+
+<div class="phone">
+  <div class="screen">
+    <div class="tap" id="tap"></div>
+    <video id="app" src="telefono.webm" muted playsinline preload="auto"></video>
+  </div>
+</div>
+
+<div class="side">
+  <div class="kicker" id="k"></div>
+  <h1 id="h"></h1>
+  <div class="lede" id="l"></div>
+  <div class="chips" id="c"></div>
+</div>
+
+<div class="disclaimer">Registrazione da telefono</div>
+<div id="card"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  // Cambia il testo della colonna destra con una dissolvenza.
+  window.scene = async (kicker, title, lede) => {
+    for (const el of [$('k'), $('h'), $('l')]) el.classList.add('fade');
+    await new Promise(r => setTimeout(r, 360));
+    $('k').textContent = kicker; $('h').innerHTML = title; $('l').innerHTML = lede;
+    for (const el of [$('k'), $('h'), $('l')]) el.classList.remove('fade');
+  };
+
+  window.chips = list => {
+    $('c').innerHTML = list.map(t => '<span class="chip">' + t + '</span>').join('');
+  };
+  window.chipOn = i => {
+    const el = $('c').children[i];
+    if (el) el.classList.add('on');
+  };
+
+  window.tapAt = (px, py) => {
+    const scr = document.querySelector('.screen').getBoundingClientRect();
+    const t = $('tap');
+    t.style.left = (px - scr.left) + 'px';
+    t.style.top = (py - scr.top) + 'px';
+    t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop');
+  };
+
+  // Comandi per la registrazione dal telefono
+  const vid = () => document.getElementById('app');
+  window.vaiA = t => { vid().currentTime = t; };
+  window.play = () => vid().play();
+  window.pausa = () => vid().pause();
+  window.tempo = () => vid().currentTime;
+
+  window.card = html => { $('card').innerHTML = html; $('card').classList.add('on'); };
+  window.cardOff = () => $('card').classList.remove('on');
+</script>
