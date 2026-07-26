@@ -1,0 +1,122 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>MikeSullyShop — scena responsive</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; }
+  body {
+    background: linear-gradient(150deg, #0c4a6e 0%, #0369a1 48%, #082f49 100%);
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+    color: #fff; display: flex; align-items: center; gap: 84px; padding: 0 96px;
+  }
+
+  .phone {
+    position: relative; flex: 0 0 auto;
+    width: 414px; height: 878px;          /* 390x854 a grandezza naturale + cornice */
+    border-radius: 52px; padding: 12px;
+    background: linear-gradient(160deg, #2b2b33, #101014);
+    box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.10) inset;
+  }
+  .screen { position: relative; width: 100%; height: 100%; border-radius: 42px; overflow: hidden; background: #fff; }
+  /* Reso 1:1, senza riduzione: e' da qui che viene la nitidezza. */
+  .screen iframe { width: 390px; height: 854px; border: 0; display: block; }
+
+  .tap {
+    position: absolute; width: 62px; height: 62px; margin: -31px 0 0 -31px; z-index: 4;
+    border-radius: 50%; border: 4px solid #38bdf8; background: rgba(56,189,248,.22);
+    opacity: 0; pointer-events: none;
+  }
+  @keyframes tap-pop { 0% { opacity:.95; transform: scale(.35); } 100% { opacity:0; transform: scale(1.25); } }
+  .tap.pop { animation: tap-pop .5s ease-out; }
+
+  .side { flex: 1 1 auto; max-width: 1080px; }
+  .kicker {
+    font-size: 24px; font-weight: 700; letter-spacing: 3.4px; text-transform: uppercase;
+    color: #7dd3fc; margin-bottom: 18px; min-height: 30px;
+  }
+  h1 { font-size: 74px; font-weight: 800; letter-spacing: -2px; line-height: 1.08; min-height: 82px; }
+  .lede { font-size: 30px; color: #bae6fd; margin-top: 20px; line-height: 1.45; max-width: 850px; min-height: 90px; }
+  .kicker, h1, .lede { transition: opacity .35s ease, transform .35s ease; }
+  .fade { opacity: 0; transform: translateY(8px); }
+
+  .grid { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 17px 23px; max-width: 910px; }
+  .feat {
+    display: flex; align-items: center; gap: 16px; padding: 18px 23px; border-radius: 18px;
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);
+    opacity: 0; transform: translateY(14px);
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  .feat.on { opacity: 1; transform: none; }
+  .feat .n { font-size: 24px; font-weight: 700; }
+  .feat .f { font-size: 19px; color: #7dd3fc; margin-top: 3px; }
+
+  /* Stesso badge della parte desktop, cosi' il testo non cambia a meta' video. */
+  .badge {
+    position: fixed; right: 22px; bottom: 18px; z-index: 20;
+    font-size: 15px; font-weight: 600; color: rgba(255,255,255,.75);
+    background: rgba(8,30,48,.62); border: 1px solid rgba(255,255,255,.16);
+    padding: 7px 16px; border-radius: 999px;
+  }
+
+  #card {
+    position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 30px; text-align: center;
+    background: linear-gradient(150deg, #0c4a6e 0%, #0369a1 45%, #082f49 100%);
+    opacity: 0; transition: opacity .55s ease; pointer-events: none;
+  }
+  #card.on { opacity: 1; }
+  #card .t { font-size: 96px; font-weight: 800; letter-spacing: -1.6px; }
+  #card .s { font-size: 36px; font-weight: 500; color: #bae6fd; max-width: 1180px; line-height: 1.4; }
+  #card .u { font-size: 28px; font-weight: 600; color: #7dd3fc; margin-top: 8px; }
+</style>
+
+<div class="phone">
+  <div class="screen">
+    <div class="tap" id="tap"></div>
+    <iframe id="app" src="http://127.0.0.1:8920/homePage.php"></iframe>
+  </div>
+</div>
+
+<div class="side">
+  <div class="kicker" id="k"></div>
+  <h1 id="h"></h1>
+  <div class="lede" id="l"></div>
+  <div class="grid" id="g">
+    <div class="feat" data-i="0"><div><div class="n">Catalogo</div><div class="f">ricerca, filtri, scroll infinito</div></div></div>
+    <div class="feat" data-i="1"><div><div class="n">Carrello</div><div class="f">timer 30 minuti, giacenza reale</div></div></div>
+    <div class="feat" data-i="2"><div><div class="n">Checkout</div><div class="f">tre metodi, OTP sulla carta</div></div></div>
+    <div class="feat" data-i="3"><div><div class="n">Gestione</div><div class="f">magazzino, ordini, vendite</div></div></div>
+  </div>
+</div>
+
+<div class="badge">Catalogo e foto reali · ordini passati di esempio</div>
+<div id="card"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  window.scene = async (kicker, title, lede) => {
+    for (const el of [$('k'), $('h'), $('l')]) el.classList.add('fade');
+    await new Promise(r => setTimeout(r, 360));
+    $('k').textContent = kicker; $('h').innerHTML = title; $('l').innerHTML = lede;
+    for (const el of [$('k'), $('h'), $('l')]) el.classList.remove('fade');
+  };
+
+  window.revealFeat = i => {
+    const el = document.querySelector('.feat[data-i="' + i + '"]');
+    if (el) el.classList.add('on');
+  };
+
+  // Anello del tocco, in coordinate di pagina (il copione passa il centro del
+  // comando dentro l'iframe, gia' trasformato da Playwright).
+  window.tapAt = (px, py) => {
+    const scr = document.querySelector('.screen').getBoundingClientRect();
+    const t = $('tap');
+    t.style.left = (px - scr.left) + 'px';
+    t.style.top = (py - scr.top) + 'px';
+    t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop');
+  };
+
+  window.card = html => { $('card').innerHTML = html; $('card').classList.add('on'); };
+  window.cardOff = () => $('card').classList.remove('on');
+</script>

@@ -193,6 +193,44 @@ annuali, esportabili in un **report PDF**. Gira su Android e Windows, backend PH
 
 ---
 
+### `> ./demo --project mikesullyshop`
+
+<div align="center">
+
+<video
+  src="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/mikesullyshop-demo.mp4"
+  poster="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/mikesullyshop-demo-poster.jpg"
+  width="820" controls muted loop>
+</video>
+
+<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/mikesullyshop-demo.mp4">apri il video</a> · 87s, senza audio</sub>
+
+</div>
+
+**MikeSullyShop** è un e-commerce completo scritto in **PHP senza framework** su
+**MySQL**, a tema Monsters & Co. Il giro è quello vero di un negozio: catalogo con
+ricerca e filtri, scheda prodotto col carosello delle immagini, e un **carrello che
+riserva la merce per trenta minuti** — scaduto il tempo la giacenza torna
+disponibile da sola. Al checkout i dati arrivano già compilati dall'account, si
+sceglie fra tre metodi di pagamento, e con la carta parte un **OTP di quattro
+cifre** da confermare prima che l'ordine venga registrato.
+
+Dietro c'è un **pannello di gestione** protetto dal ruolo: magazzino con giacenze,
+prezzi, sconti e caricamento multiplo delle foto; ordini da seguire e far avanzare
+di stato; riepilogo delle vendite. Password con `password_hash`, query preparate,
+`htmlspecialchars` ovunque.
+
+> Nel video l'ordine che si vede nascere è **vero**: passa dal checkout e
+> dall'OTP, e per questo ricompare in cima al pannello Ordini. Il catalogo e le
+> foto sono quelli del repo; lo **storico ordini** precedente è costruito per la
+> demo, altrimenti i pannelli Ordini e Vendite sarebbero vuoti.
+
+<div align="center">
+  <sub>↳ codice su <a href="https://github.com/proismamaster/mike-sully-shop">github.com/proismamaster/mike-sully-shop</a></sub>
+</div>
+
+---
+
 ### `> ./stats --render`
 
 <div align="center">
