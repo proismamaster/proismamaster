@@ -100,9 +100,9 @@ ismail@brainos:~$ neofetch
 > Editor di diagrammi di flusso che li esegue davvero e li traduce in codice.
 > `Electron` · `Capacitor` · `open-source`
 
- [NutriApp](https://github.com/proismamaster/NutriApp-releases)
-> App nutrizione con CI installer & release automatiche.
-> `desktop` · `CI/CD` · `v1.0.0`
+ [NutriApp](https://github.com/proismamaster/NutriApp-releases) — [**▶ demo**](#-demo---project-nutriapp)
+> App nutrizione in Flutter: pasti, macro, grafici storici e report PDF.
+> `Flutter` · `Android` · `v1.0.0`
 
 </td>
 <td width="50%" valign="top">
@@ -152,6 +152,40 @@ GitHub Actions a ogni tag.
 
 <div align="center">
   <sub>↳ codice su <a href="https://github.com/proismamaster/BaseFlow">github.com/proismamaster/BaseFlow</a> · sorgenti del video in <a href="tools/demo-video">tools/demo-video</a></sub>
+</div>
+
+---
+
+### `> ./demo --project nutriapp`
+
+<div align="center">
+
+<video
+  src="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4"
+  poster="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo-poster.jpg"
+  width="820" controls muted loop>
+</video>
+
+<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/nutriapp-demo.mp4">apri il video</a> · 78s, senza audio</sub>
+
+</div>
+
+**NutriApp** è un'app di nutrizione scritta in **Flutter**, nata come progetto di
+squadra con me team lead di quattro persone. Registri quello che mangi e l'app
+tiene il conto: anello delle calorie rimanenti sull'obiettivo, barre di
+carboidrati, proteine e grassi, e il dettaglio fino ai micronutrienti.
+
+Sopra ci sta la parte che serve davvero nel tempo: un **calendario** di tutte le
+giornate registrate, **grafici storici** su scala giornaliera, settimanale,
+mensile e annuale, e l'export di un **report PDF** da portare al nutrizionista.
+Gira su Android e Windows, con backend PHP.
+
+> Il video è registrato con un backend di prova e dati inventati — serve a
+> mostrare l'interfaccia, non consumi reali. Il badge "Dati dimostrativi" resta
+> a schermo per tutta la durata.
+
+<div align="center">
+  <sub>↳ codice su <a href="https://github.com/proismamaster/NutriApp">github.com/proismamaster/NutriApp</a> · installer su <a href="https://github.com/proismamaster/NutriApp-releases/releases">NutriApp-releases</a></sub>
 </div>
 
 ---

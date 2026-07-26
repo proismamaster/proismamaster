@@ -1,0 +1,119 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>NutriApp — scena demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 720px; overflow: hidden; }
+  body {
+    background: linear-gradient(150deg, #0f3d24 0%, #1b6b3a 46%, #06301c 100%);
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+    color: #fff; display: flex; align-items: center; gap: 58px; padding: 0 64px;
+  }
+
+  .phone {
+    position: relative; flex: 0 0 auto;
+    width: 306px; height: 646px;
+    border-radius: 42px; padding: 10px;
+    background: linear-gradient(160deg, #2b2b33, #101014);
+    box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.10) inset;
+  }
+  .screen { position: relative; width: 100%; height: 100%; border-radius: 33px; overflow: hidden; background: #fff; }
+  .screen iframe {
+    width: 390px; height: 854px; border: 0; display: block;
+    transform: scale(.7333); transform-origin: 0 0;
+  }
+  .tap {
+    position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; z-index: 4;
+    border-radius: 50%; border: 3px solid #34d399; background: rgba(52,211,153,.22);
+    opacity: 0; pointer-events: none;
+  }
+  @keyframes tap-pop { 0% { opacity:.95; transform: scale(.35); } 100% { opacity:0; transform: scale(1.25); } }
+  .tap.pop { animation: tap-pop .5s ease-out; }
+
+  .side { flex: 1 1 auto; max-width: 720px; }
+  .kicker {
+    font-size: 16px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase;
+    color: #6ee7b7; margin-bottom: 12px; min-height: 20px;
+  }
+  h1 { font-size: 50px; font-weight: 800; letter-spacing: -1.3px; line-height: 1.1; min-height: 56px; }
+  .lede { font-size: 21px; color: #d1fae5; margin-top: 16px; line-height: 1.45; max-width: 610px; min-height: 62px; }
+  .kicker, h1, .lede { transition: opacity .35s ease, transform .35s ease; }
+  .fade { opacity: 0; transform: translateY(8px); }
+
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .chip {
+    font-size: 16px; font-weight: 600; padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #ecfdf5;
+    opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease;
+  }
+  .chip.on { opacity: 1; transform: none; }
+
+  /* Badge sempre visibile: i dati dello storico sono inventati per la demo. */
+  .disclaimer {
+    position: fixed; right: 18px; bottom: 16px; z-index: 20;
+    font-size: 13px; font-weight: 600; color: rgba(255,255,255,.62);
+    background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.16);
+    padding: 6px 13px; border-radius: 999px;
+  }
+
+  #card {
+    position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; text-align: center;
+    background: linear-gradient(150deg, #0f3d24 0%, #1b6b3a 46%, #06301c 100%);
+    opacity: 0; transition: opacity .55s ease; pointer-events: none;
+  }
+  #card.on { opacity: 1; }
+  #card .t { font-size: 66px; font-weight: 800; letter-spacing: -1.6px; }
+  #card .s { font-size: 26px; font-weight: 500; color: #d1fae5; max-width: 780px; line-height: 1.4; }
+  #card .u { font-size: 20px; font-weight: 600; color: #6ee7b7; margin-top: 8px; }
+  #card .chips { justify-content: center; }
+  #card .chip { opacity: 1; transform: none; }
+</style>
+
+<div class="phone">
+  <div class="screen">
+    <div class="tap" id="tap"></div>
+    <iframe id="app" src="http://127.0.0.1:8903/nutriapp/"></iframe>
+  </div>
+</div>
+
+<div class="side">
+  <div class="kicker" id="k"></div>
+  <h1 id="h"></h1>
+  <div class="lede" id="l"></div>
+  <div class="chips" id="c"></div>
+</div>
+
+<div class="disclaimer">Dati dimostrativi</div>
+<div id="card"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  // Cambia il testo della colonna destra con una dissolvenza.
+  window.scene = async (kicker, title, lede) => {
+    for (const el of [$('k'), $('h'), $('l')]) el.classList.add('fade');
+    await new Promise(r => setTimeout(r, 360));
+    $('k').textContent = kicker; $('h').innerHTML = title; $('l').innerHTML = lede;
+    for (const el of [$('k'), $('h'), $('l')]) el.classList.remove('fade');
+  };
+
+  window.chips = list => {
+    $('c').innerHTML = list.map(t => '<span class="chip">' + t + '</span>').join('');
+  };
+  window.chipOn = i => {
+    const el = $('c').children[i];
+    if (el) el.classList.add('on');
+  };
+
+  window.tapAt = (px, py) => {
+    const scr = document.querySelector('.screen').getBoundingClientRect();
+    const t = $('tap');
+    t.style.left = (px - scr.left) + 'px';
+    t.style.top = (py - scr.top) + 'px';
+    t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop');
+  };
+
+  window.card = html => { $('card').innerHTML = html; $('card').classList.add('on'); };
+  window.cardOff = () => $('card').classList.remove('on');
+</script>
