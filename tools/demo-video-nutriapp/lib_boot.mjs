@@ -21,6 +21,7 @@ export async function wire(ctx) {
   await ctx.route('http://progetti.galileicrema.org/**', async r => {
     const u = new URL(r.request().url());
     const res = await r.fetch({ url: 'http://127.0.0.1:8911' + u.pathname + u.search });
+
     await r.fulfill({ response: res });
   });
   await ctx.route('https://accounts.google.com/**', r => r.abort());
@@ -52,3 +53,12 @@ export async function shimBarcode(ctx, code = '8076809513692', ritardoFrame = 18
     window.BarcodeDetector = BarcodeDetector;
   }, [code, ritardoFrame]);
 }
+
+// FOTO DEI PRODOTTI: non compaiono, e non e' un limite aggirabile da qui.
+// L'app le mostra solo lungo il percorso "scansiona il codice a barre", dove
+// get_product_by_barcode.php interroga OpenFoodFacts in diretta e ne restituisce
+// `image_url`. Tutti gli host *.openfoodfacts.org sono rifiutati dalla policy di
+// rete (403 al gateway), e lo scanner non esiste nel build web. Iniettare un
+// `image_url` nelle risposte di search_crea_foods/search_off_products e' stato
+// provato: l'app non lo legge su quelle schede, quindi resta il segnaposto.
+// Con la rete normale, su telefono, la foto si vede.

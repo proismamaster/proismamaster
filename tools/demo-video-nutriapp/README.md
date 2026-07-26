@@ -35,7 +35,8 @@ DB_HOST=127.0.0.1 DB_NAME=nutriapp DB_USER=... DB_PASSWORD=... \
 
 `lib_boot.mjs` dirotta le chiamate da `progetti.galileicrema.org` a `:8911`.
 Il risultato: login vero (`password_verify`), **788 alimenti reali** con i loro
-valori nutrizionali, ricerca vera. Cercando "pasta" escono otto voci CREA vere.
+valori nutrizionali, ricerca vera. Cercando "riso" escono otto voci: sette dal database CREA e una
+dai prodotti OpenFoodFacts in cache, con marca e codice a barre.
 
 Cosa resta generato da noi, e va detto:
 
@@ -51,12 +52,25 @@ database reale"*.
 OpenFoodFacts) di quelli nei dump del repo: qui i risultati sono reali ma meno
 numerosi.
 
-## Le foto dei prodotti non ci sono, e non è colpa dell'app
+## Le foto dei prodotti non ci sono, e non è aggirabile da qui
 
-Le immagini **non stanno nel database** — l'unica colonna immagine dell'intero
-schema è `na_users.profile_image`. L'app le scarica live da OpenFoodFacts, host
-che l'ambiente di registrazione non raggiunge. Da qui il segnaposto grigio nella
-scheda prodotto. Su un telefono con rete normale le foto si vedono.
+Nell'app la foto compare **solo** lungo il percorso "scansiona il codice a
+barre": è `get_product_by_barcode.php` che interroga OpenFoodFacts in diretta e
+ne restituisce `image_url`. Due muri contemporaneamente:
+
+- tutti gli host `*.openfoodfacts.org` (world, it, images, static) sono rifiutati
+  dalla policy di rete con 403 al gateway — verificato anche via WebFetch;
+- lo scanner non esiste nel build web (vedi sotto), quindi quel percorso non si
+  può nemmeno imboccare.
+
+Iniettare un `image_url` nelle risposte di `search_crea_foods` /
+`search_off_products` **è stato provato e non serve**: le schede raggiungibili
+dalla ricerca non leggono quel campo, quindi resta il segnaposto grigio.
+Su un telefono con rete normale la foto si vede.
+
+Per questo il video apre il prodotto **a marca** (`Riso rosso`, Scotti) e non una
+riga CREA nuda: pur senza foto, la sua scheda porta marca, codice a barre già
+compilato e il pulsante con i dettagli OpenFoodFacts.
 
 ## La scansione del codice a barre non è registrabile
 

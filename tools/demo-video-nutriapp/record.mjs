@@ -86,68 +86,84 @@ await scene('Il diario', 'Quello che mangi,<br>giorno per giorno.',
 await sleep(4500);
 
 // 2) RICERCA PER NOME -------------------------------------------------------
+// Regola di sincronia: la didascalia si imposta PRIMA del gesto e si tiene
+// mentre il gesto avviene, mai dopo.
 mark('ricerca');
-await tap(195, 809, 3000);                       // Aggiungi
 await scene('Aggiungi', 'Cerchi l\'alimento<br>e lo trovi.',
   'Ricerca per nome sul database nutrizionale, oppure scansione del codice a barre.');
-await sleep(2500);
+await sleep(1300);
+await tap(195, 809, 2600);                       // Aggiungi
 await tap(195, 194, 700);
-await type('pasta', 130);
-await sleep(600);
+await type('riso', 150);
+await sleep(500);
 await p.keyboard.press('Enter');
-await sleep(3200);
-await scene('', 'I risultati arrivano<br>dal database CREA.', 'Ogni voce con le sue calorie per 100 g. Sotto continua la lista.');
-await sleep(4000);
+await sleep(2600);
+await scene('', 'Otto risultati veri:<br>database CREA e prodotti a marca.',
+  'Ogni voce con le sue calorie per 100 g.');
+await sleep(4200);
 
 // 3) SCHEDA DELL'ALIMENTO ---------------------------------------------------
 mark('scheda');
-await tap(195, 266, 3500);                       // primo risultato
 await scene('La scheda', 'Si apre gia<br>compilata.',
-  'Calorie per porzione, percentuale sul fabbisogno, e il campo per il codice a barre.');
-await sleep(5000);
-await tap(195, 503, 1400);                       // selettore del pasto
-await tap(195, 551, 1800);                       // Pranzo
+  'Prendiamo il prodotto a marca: porta con se il codice a barre e la scheda completa.');
+await sleep(1500);
+await tap(195, 526, 3400);                       // Riso rosso (Scotti), prodotto a marca
+await scene('', 'Marca, calorie per porzione<br>e quota sul fabbisogno.',
+  'Il codice a barre e gia compilato: viene dal prodotto, non lo scrivi tu.');
+await sleep(4600);
+
 await scene('', 'Scegli il pasto…', 'Colazione, pranzo, cena o spuntino.');
-await sleep(3000);
+await sleep(1400);
+await tap(195, 503, 1300);                       // selettore del pasto
+await tap(195, 551, 2600);                       // Pranzo
+await sleep(1400);
+
+await scene('', '…e la porzione.', 'I valori si ricalcolano sul peso che inserisci.');
+await sleep(1400);
 await tap(65, 810, 700);                         // campo peso
 await p.keyboard.press('Control+A');
-await type('120', 200);
-await scene('', '…e la porzione.', 'I valori si ricalcolano sul peso che inserisci.');
-await sleep(3800);
+await type('150', 220);
+await sleep(3200);
 
 // 4) I MACRO A COLPO D'OCCHIO ----------------------------------------------
 mark('micro');
-await swipe(195, 700, 300);
 await scene('Dettaglio', 'Non solo calorie.',
   'Carboidrati, proteine, grassi, fibre e zuccheri in chiaro; i dettagli dei grassi si aprono solo se ti servono.');
-await sleep(5500);
+await sleep(1400);
+await swipe(195, 700, 300);
+await sleep(4600);
 
 // 5) AGGIUNGI E TORNA AL DIARIO --------------------------------------------
 mark('salva');
-await tap(250, 810, 3500);                       // AGGIUNGI (fisso in basso)
-await scene('Fatto', 'E il diario<br>si aggiorna.', 'Le calorie rimanenti e le barre dei macro cambiano subito.');
-await sleep(2200);
-await tap(39, 820, 4000);                        // torna alla home
-await sleep(4500);
+await scene('Fatto', 'E il diario<br>si aggiorna.',
+  'Le calorie rimanenti e le barre dei macro cambiano subito.');
+await sleep(1400);
+await tap(250, 810, 3200);                       // AGGIUNGI (fisso in basso)
+await tap(39, 820, 3600);                        // torna alla home
+await sleep(4200);
 
 // 6) RICETTE ----------------------------------------------------------------
 mark('ricette');
-await tap(273, 820, 4000);
 await scene('Ricette', 'Quello che cucini<br>davvero, salvato.',
   'Una ricetta e un insieme di ingredienti con i suoi valori: si registra in un tocco invece di rifare la somma ogni volta.');
-await sleep(6000);
-await tap(195, 350, 3500);                       // apre la prima ricetta
-await sleep(4500);
+await sleep(1400);
+await tap(273, 820, 3600);
+await sleep(4200);
+await scene('', 'Con gli ingredienti<br>e i loro valori.', 'Aprendola si vede la somma, non solo il nome.');
+await sleep(1400);
+await tap(195, 350, 3400);                       // apre la prima ricetta
+await sleep(4600);
 
 // 7) UNO SGUARDO AI GRAFICI -------------------------------------------------
 mark('grafici');
-await tap(28, 28, 2000);                         // esce dal dettaglio ricetta
-await tap(351, 820, 4500);
-await swipe(195, 640, 240);
-await swipe(195, 640, 260);
 await scene('Nel tempo', 'E tutto questo<br>diventa un andamento.',
   'Calorie giorno per giorno, distribuzione dei macro, report PDF.');
-await sleep(6000);
+await sleep(1400);
+await tap(28, 28, 1800);                         // esce dal dettaglio ricetta
+await tap(351, 820, 4200);
+await swipe(195, 640, 240);
+await swipe(195, 640, 260);
+await sleep(5000);
 
 // 8) CARTELLO FINALE --------------------------------------------------------
 mark('outro');

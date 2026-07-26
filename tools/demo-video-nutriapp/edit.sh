@@ -8,18 +8,18 @@ set -uo pipefail
 
 D="$(cd "$(dirname "$0")" && pwd)"
 FF="${FF:-ffmpeg}"
-SRC=$(ls "$D"/raw/*.webm | head -1)          # durata 145.28, 1920x1080
+SRC=$(ls "$D"/raw/*.webm | head -1)          # durata 141.80, 1920x1080
 
 #      inizio    fine      velocita'
-A_IN=4.80;   A_OUT=9.00;    A_SPD=1.00   # cartello di apertura (l'accesso avviene dietro)
-B_IN=34.00;  B_OUT=40.00;   B_SPD=1.00   # il diario di partenza
-C_IN=40.00;  C_OUT=60.00;   C_SPD=1.50   # Aggiungi + ricerca sul database reale
-D_IN=60.00;  D_OUT=83.00;   D_SPD=1.60   # scheda prodotto, pasto, porzione
-E_IN=83.00;  E_OUT=92.00;   E_SPD=1.40   # macro in chiaro
-F_IN=92.00;  F_OUT=112.00;  F_SPD=1.50   # AGGIUNGI e diario aggiornato
-G_IN=112.00; G_OUT=133.00;  G_SPD=1.60   # ricette e dettaglio ricetta
-H_IN=133.00; H_OUT=142.00;  H_SPD=1.80   # sguardo ai grafici
-I_IN=142.80; I_OUT=145.20;  I_SPD=0.50   # cartello finale (fermo)
+A_IN=3.00;   A_OUT=7.20;    A_SPD=1.00   # cartello di apertura (l'accesso avviene dietro)
+B_IN=31.00;  B_OUT=37.00;   B_SPD=1.00   # il diario di partenza
+C_IN=37.00;  C_OUT=52.00;   C_SPD=1.40   # Aggiungi + ricerca "riso" + otto risultati
+D_IN=52.00;  D_OUT=76.00;   D_SPD=1.60   # scheda del prodotto a marca, pasto, porzione
+E_IN=76.00;  E_OUT=84.00;   E_SPD=1.40   # macro in chiaro
+F_IN=84.00;  F_OUT=104.00;  F_SPD=1.50   # AGGIUNGI e diario aggiornato
+G_IN=104.00; G_OUT=125.00;  G_SPD=1.60   # ricette e dettaglio ricetta
+H_IN=125.00; H_OUT=138.50;  H_SPD=2.00   # sguardo ai grafici
+I_IN=139.50; I_OUT=141.80;  I_SPD=0.50   # cartello finale (fermo)
 
 read -r TOTAL A_DUR <<<"$(python3 -c "
 s=[($A_OUT-$A_IN)/$A_SPD, ($B_OUT-$B_IN)/$B_SPD, ($C_OUT-$C_IN)/$C_SPD,
@@ -54,7 +54,7 @@ filter="
   -movflags +faststart -an "$D/nutriapp-demo.mp4" || exit 1
 
 "$FF" -y -hide_banner -loglevel error -i "$D/nutriapp-demo.mp4" \
-  -ss 46 -frames:v 1 -q:v 2 "$D/nutriapp-demo-poster.jpg" || exit 1
+  -ss 34 -frames:v 1 -q:v 2 "$D/nutriapp-demo-poster.jpg" || exit 1
 
 ls -la "$D"/nutriapp-demo.mp4 "$D"/nutriapp-demo-poster.jpg
 "$FF" -hide_banner -i "$D/nutriapp-demo.mp4" 2>&1 | grep -E "Duration|Stream"
