@@ -3,69 +3,70 @@
 <title>NutriApp — scena demo</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1280px; height: 720px; overflow: hidden; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; }
   body {
     background: linear-gradient(150deg, #0f3d24 0%, #1b6b3a 46%, #06301c 100%);
     font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
-    color: #fff; display: flex; align-items: center; gap: 58px; padding: 0 64px;
+    color: #fff; display: flex; align-items: center; gap: 96px; padding: 0 104px;
   }
 
   .phone {
     position: relative; flex: 0 0 auto;
-    width: 306px; height: 646px;
-    border-radius: 42px; padding: 10px;
+    width: 414px; height: 878px;
+    border-radius: 52px; padding: 12px;
     background: linear-gradient(160deg, #2b2b33, #101014);
     box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.10) inset;
   }
-  .screen { position: relative; width: 100%; height: 100%; border-radius: 33px; overflow: hidden; background: #fff; }
+  .screen { position: relative; width: 100%; height: 100%; border-radius: 42px; overflow: hidden; background: #fff; }
   .screen iframe {
     width: 390px; height: 854px; border: 0; display: block;
-    transform: scale(.7333); transform-origin: 0 0;
+    transform: none;                      /* 1:1, nessun downscale */
   }
   .tap {
-    position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; z-index: 4;
-    border-radius: 50%; border: 3px solid #34d399; background: rgba(52,211,153,.22);
+    position: absolute; width: 62px; height: 62px; margin: -31px 0 0 -31px; z-index: 4;
+    border-radius: 50%; border: 4px solid #34d399; background: rgba(52,211,153,.22);
     opacity: 0; pointer-events: none;
   }
   @keyframes tap-pop { 0% { opacity:.95; transform: scale(.35); } 100% { opacity:0; transform: scale(1.25); } }
   .tap.pop { animation: tap-pop .5s ease-out; }
 
-  .side { flex: 1 1 auto; max-width: 720px; }
+  .side { flex: 1 1 auto; max-width: 1080px; }
   .kicker {
-    font-size: 16px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase;
-    color: #6ee7b7; margin-bottom: 12px; min-height: 20px;
+    font-size: 22px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: #6ee7b7; margin-bottom: 18px; min-height: 28px;
   }
-  h1 { font-size: 50px; font-weight: 800; letter-spacing: -1.3px; line-height: 1.1; min-height: 56px; }
-  .lede { font-size: 21px; color: #d1fae5; margin-top: 16px; line-height: 1.45; max-width: 610px; min-height: 62px; }
+  h1 { font-size: 74px; font-weight: 800; letter-spacing: -2px; line-height: 1.08; min-height: 82px; }
+  .lede { font-size: 30px; color: #d1fae5; margin-top: 24px; line-height: 1.45; max-width: 900px; min-height: 92px; }
   .kicker, h1, .lede { transition: opacity .35s ease, transform .35s ease; }
   .fade { opacity: 0; transform: translateY(8px); }
 
-  .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .chips { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; }
   .chip {
-    font-size: 16px; font-weight: 600; padding: 8px 16px; border-radius: 999px;
+    font-size: 23px; font-weight: 600; padding: 12px 24px; border-radius: 999px;
     background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #ecfdf5;
     opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease;
   }
   .chip.on { opacity: 1; transform: none; }
 
-  /* Badge sempre visibile: i dati dello storico sono inventati per la demo. */
+  /* Badge sempre visibile: gli alimenti e i valori nutrizionali sono quelli veri
+     del database del progetto; sono i pasti registrati a essere generati. */
   .disclaimer {
-    position: fixed; right: 18px; bottom: 16px; z-index: 20;
-    font-size: 13px; font-weight: 600; color: rgba(255,255,255,.62);
+    position: fixed; right: 26px; bottom: 24px; z-index: 20;
+    font-size: 18px; font-weight: 600; color: rgba(255,255,255,.62);
     background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.16);
-    padding: 6px 13px; border-radius: 999px;
+    padding: 9px 19px; border-radius: 999px;
   }
 
   #card {
     position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 20px; text-align: center;
+    align-items: center; justify-content: center; gap: 30px; text-align: center;
     background: linear-gradient(150deg, #0f3d24 0%, #1b6b3a 46%, #06301c 100%);
     opacity: 0; transition: opacity .55s ease; pointer-events: none;
   }
   #card.on { opacity: 1; }
-  #card .t { font-size: 66px; font-weight: 800; letter-spacing: -1.6px; }
-  #card .s { font-size: 26px; font-weight: 500; color: #d1fae5; max-width: 780px; line-height: 1.4; }
-  #card .u { font-size: 20px; font-weight: 600; color: #6ee7b7; margin-top: 8px; }
+  #card .t { font-size: 98px; font-weight: 800; letter-spacing: -1.6px; }
+  #card .s { font-size: 38px; font-weight: 500; color: #d1fae5; max-width: 1180px; line-height: 1.4; }
+  #card .u { font-size: 30px; font-weight: 600; color: #6ee7b7; margin-top: 8px; }
   #card .chips { justify-content: center; }
   #card .chip { opacity: 1; transform: none; }
 </style>
@@ -84,7 +85,7 @@
   <div class="chips" id="c"></div>
 </div>
 
-<div class="disclaimer">Dati dimostrativi</div>
+<div class="disclaimer">Diario di esempio · alimenti dal database reale</div>
 <div id="card"></div>
 
 <script>

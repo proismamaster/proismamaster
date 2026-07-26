@@ -8,18 +8,18 @@ set -uo pipefail
 
 D="$(cd "$(dirname "$0")" && pwd)"
 FF="${FF:-ffmpeg}"
-SRC=$(ls "$D"/raw/*.webm | head -1)          # durata 141.24
+SRC=$(ls "$D"/raw/*.webm | head -1)          # durata 145.28, 1920x1080
 
 #      inizio    fine      velocita'
-A_IN=2.20;   A_OUT=6.40;    A_SPD=1.00   # cartello di apertura (l'accesso avviene dietro)
-B_IN=30.00;  B_OUT=35.50;   B_SPD=1.00   # il diario di partenza
-C_IN=35.50;  C_OUT=55.00;   C_SPD=1.50   # Aggiungi + ricerca per nome
-D_IN=55.00;  D_OUT=78.00;   D_SPD=1.60   # scheda alimento, pasto, porzione
-E_IN=78.00;  E_OUT=88.00;   E_SPD=1.40   # grassi, vitamine, minerali
-F_IN=88.00;  F_OUT=108.00;  F_SPD=1.50   # AGGIUNGI e diario aggiornato
-G_IN=108.00; G_OUT=128.00;  G_SPD=1.50   # ricette
-H_IN=128.00; H_OUT=138.00;  H_SPD=1.70   # sguardo ai grafici
-I_IN=138.80; I_OUT=141.20;  I_SPD=0.50   # cartello finale (fermo)
+A_IN=4.80;   A_OUT=9.00;    A_SPD=1.00   # cartello di apertura (l'accesso avviene dietro)
+B_IN=34.00;  B_OUT=40.00;   B_SPD=1.00   # il diario di partenza
+C_IN=40.00;  C_OUT=60.00;   C_SPD=1.50   # Aggiungi + ricerca sul database reale
+D_IN=60.00;  D_OUT=83.00;   D_SPD=1.60   # scheda prodotto, pasto, porzione
+E_IN=83.00;  E_OUT=92.00;   E_SPD=1.40   # macro in chiaro
+F_IN=92.00;  F_OUT=112.00;  F_SPD=1.50   # AGGIUNGI e diario aggiornato
+G_IN=112.00; G_OUT=133.00;  G_SPD=1.60   # ricette e dettaglio ricetta
+H_IN=133.00; H_OUT=142.00;  H_SPD=1.80   # sguardo ai grafici
+I_IN=142.80; I_OUT=145.20;  I_SPD=0.50   # cartello finale (fermo)
 
 read -r TOTAL A_DUR <<<"$(python3 -c "
 s=[($A_OUT-$A_IN)/$A_SPD, ($B_OUT-$B_IN)/$B_SPD, ($C_OUT-$C_IN)/$C_SPD,
@@ -30,7 +30,7 @@ A_FADE=$(python3 -c "print(round($A_DUR-0.35, 2))")
 FADE_OUT=$(python3 -c "print(round($TOTAL-0.9, 2))")
 echo "durata finale attesa: ${TOTAL}s  (fade out a ${FADE_OUT}s)"
 
-SC="scale=1280:720:flags=lanczos,setsar=1"
+SC="scale=1920:1080:flags=lanczos,setsar=1"
 
 filter="
 [0:v]trim=${A_IN}:${A_OUT},setpts=(PTS-STARTPTS)/${A_SPD},$SC,fade=t=out:st=${A_FADE}:d=0.35[a];

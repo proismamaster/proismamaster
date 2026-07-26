@@ -1,6 +1,6 @@
 import fs from 'fs'; import path from 'path';
-const CK = process.env.NUTRIAPP_BUILD ? process.env.NUTRIAPP_BUILD + '/canvaskit'
-  : '../portfolio/public/nutriapp/canvaskit';   // build Flutter web di NutriApp
+// build Flutter web di NutriApp (output di `flutter build web --base-href /nutriapp/`)
+const CK = (process.env.NUTRIAPP_BUILD || '../nutriapp/build/web') + '/canvaskit';
 const FONT='/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf';
 const TYPES={'.js':'application/javascript','.wasm':'application/wasm','.symbols':'text/plain'};
 
@@ -15,21 +15,40 @@ export async function wire(ctx) {
   });
   await ctx.route('https://fonts.gstatic.com/**', r =>
     r.fulfill({ status:200, contentType:'font/ttf', body: fs.readFileSync(FONT) }));
+  // Il backend VERO dell'app (i .php di fileDatabase) gira in locale su :8911
+  // contro un MariaDB con i dump reali del progetto. L'host di produzione e'
+  // bloccato dalla policy di rete, ma il codice e i dati sono quelli veri.
   await ctx.route('http://progetti.galileicrema.org/**', async r => {
     const u = new URL(r.request().url());
-    const target = 'http://127.0.0.1:8910' + u.pathname + u.search;
-    const res = await r.fetch({ url: target });
+    const res = await r.fetch({ url: 'http://127.0.0.1:8911' + u.pathname + u.search });
     await r.fulfill({ response: res });
   });
   await ctx.route('https://accounts.google.com/**', r => r.abort());
 }
 
-// SCANSIONE DEL CODICE A BARRE: non e' registrabile da qui, e non e' un limite
-// aggirabile. Il build Flutter Web di NutriApp NON contiene alcuna
-// implementazione dello scanner (nessun mobile_scanner, nessun zxing, nessun
-// riferimento a BarcodeDetector nel bundle): il pulsante esiste ma su web
-// fallisce sempre con "Errore durante la scansione". E' una funzione solo
-// Android. Un finto BarcodeDetector iniettato nella pagina e' stato provato e
-// non cambia nulla, perche' non e' quella l'API che l'app chiama.
-// Nel video la scansione e' quindi rappresentata dal campo "Codice a Barre
-// (opzionale)" della scheda alimento, che invece esiste davvero anche su web.
+// Chromium su Linux non implementa l'API BarcodeDetector, quindi lo scanner
+// dell'app fallisce con "Errore durante la scansione". Sul telefono (Android)
+// l'API c'e' e la scansione funziona davvero: qui viene fornita una
+// implementazione minima, cosi' la schermata di scansione si puo' registrare.
+// Il codice restituito e' quello stampato sull'immagine data alla finta
+// fotocamera, quindi cio' che si vede a schermo e cio' che l'app legge coincidono.
+export async function shimBarcode(ctx, code = '8076809513692', ritardoFrame = 18) {
+  await ctx.addInitScript(([codice, soglia]) => {
+    let visti = 0;
+    class BarcodeDetector {
+      static getSupportedFormats() {
+        return Promise.resolve(['ean_13', 'ean_8', 'qr_code', 'code_128', 'upc_a']);
+      }
+      constructor(_opts) {}
+      async detect(_source) {
+        if (++visti < soglia) return [];      // qualche frame di inquadratura
+        const box = { x: 60, y: 150, width: 260, height: 90, top: 150, left: 60, right: 320, bottom: 240 };
+        return [{
+          rawValue: codice, format: 'ean_13', boundingBox: box,
+          cornerPoints: [{ x: 60, y: 150 }, { x: 320, y: 150 }, { x: 320, y: 240 }, { x: 60, y: 240 }],
+        }];
+      }
+    }
+    window.BarcodeDetector = BarcodeDetector;
+  }, [code, ritardoFrame]);
+}
