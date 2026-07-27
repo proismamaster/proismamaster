@@ -19,14 +19,40 @@ e' simulata.
 ## Cosa mostra
 
 1. Cartello di apertura.
-2. Catalogo, con la ricerca che interroga il database.
-3. Scheda prodotto: carosello di immagini, giacenza, aggiunta al carrello.
-4. Carrello con il **timer da 30 minuti** che riserva la merce.
-5. Checkout: dati precompilati, tre metodi di pagamento, **OTP** sulla carta,
-   ordine confermato con il suo numero.
-6. Pannello di gestione: magazzino, ordini (in cima quello appena fatto), vendite.
-7. Coda dentro il telefono, per far vedere che il layout regge.
-8. Cartello di chiusura.
+2. Vetrina, di passaggio: ricerca che interroga il database, scheda prodotto,
+   carrello col **timer da 30 minuti**.
+3. **Pannello di gestione**, che è il cuore del video (tre quarti della parte
+   desktop): magazzino con ricerca, modifica di un articolo e giacenza salvata;
+   ordini con il cambio di stato riga per riga; riepilogo vendite.
+4. Coda dentro il telefono, per far vedere che il layout regge.
+5. Cartello di chiusura.
+
+### Il checkout non si vede, ed è voluto
+
+L'ordine viene creato **davvero** — la funzione `ordineFuoriCampo()` passa dal
+carrello, dal form di spedizione e dall'OTP — ma quella parte non viene ripresa:
+la pagina di spedizione e quella di conferma mostrano indirizzo, telefono e
+metodo di pagamento, che in un video di portfolio non ci devono stare. Serve
+solo a far comparire l'ordine, subito dopo, in cima al pannello Ordini.
+
+⚠️ In `edit.sh` i due confini che tengono fuori quel pezzo (fine del segmento A,
+inizio del segmento B) vanno ricontrollati **fotogramma per fotogramma** se
+rigeneri le registrazioni: sono l'unica cosa che tiene i dati personali fuori.
+
+### Le didascalie: prima la scritta, poi il gesto
+
+Tutto il parlato passa da `beat(testo, azione)`, che mette su la didascalia,
+aspetta un attimo, e **solo dopo** esegue il gesto, tenendo la scritta a schermo
+finché il gesto non è finito. È l'unico modo per non ritrovarsi a leggere una
+cosa mentre a schermo ne succede un'altra.
+
+Due dettagli che sembrano cavilli e non lo sono:
+
+- se il gesto cambia pagina serve `naviga: true`, perché il documento nuovo
+  nasce senza didascalia e va rimessa, altrimenti la scritta sparisce a metà;
+- il montaggio taglia dove finisce il **gesto**, non dove finisce la scritta.
+  Una didascalia che resta su venti secondi dopo l'azione è lo stesso difetto
+  visto dall'altra parte.
 
 ## Il database: schema ricostruito, dati in parte generati
 
@@ -114,6 +140,46 @@ bash edit.sh
 nella copia dentro il portfolio) **se `MSS_DB_PASS` non e' impostata**. Se ti
 ritrovi un catalogo diverso da quello che hai caricato, e' perche' l'app non si
 sta collegando a MySQL.
+
+## `php -S` si impunta: come non perdere una ripresa
+
+Il server di sviluppo di PHP serve **una richiesta per processo** e resta in
+ascolto sulla socket finché il client non la chiude. Chromium apre delle
+connessioni "di riscaldamento" su cui non manda mai una richiesta, e ognuna si
+mangia un processo per sempre: dopo qualche minuto il server smette di
+rispondere e la registrazione si pianta su una navigazione, **senza un errore**.
+Nel log si riconosce subito: righe `Accepted` senza la richiesta che segue.
+
+Tre accorgimenti, tutti necessari:
+
+```bash
+PHP_CLI_SERVER_WORKERS=32 php -S 127.0.0.1:8920 -t .      # non un processo solo
+```
+
+```js
+chromium.launch({ args: [
+  '--disable-background-networking', '--disable-features=NetworkPrediction',
+  '--dns-prefetch-disable',                                // niente preconnessioni
+]});
+```
+
+E `vai()` ritenta: prima con `goto`, poi — se non passa — navigando **da dentro
+la pagina** con `location.href`. A ripresa avanzata capita che il `goto`
+pilotato da CDP non spedisca mai la richiesta, mentre il cambio di
+`location.href` fatto dalla pagina passa sempre. Stessa cosa per l'invio dei
+form: `el.form.requestSubmit(el)` al posto del click.
+
+⚠️ Tutto quello che aspetta **dentro** la pagina (le dissolvenze dell'overlay,
+lo scorrimento su `requestAnimationFrame`) passa da `conTetto()`, che gli mette
+un limite. Senza, una sola di quelle attese può bloccare il copione per minuti.
+
+⚠️ Il pannello Ordini chiede un `confirm()` prima di cambiare stato, e il
+checkout un `prompt()` per l'OTP. Il gestore va **atteso**
+(`async d => { await d.accept('1234'); }`): se si prosegue senza aspettare,
+l'invio del form si perde e lo stato non viene mai salvato.
+
+Se nonostante tutto resta del tempo morto in mezzo alla registrazione, non è un
+dramma: si taglia in montaggio, come è stato fatto fra i segmenti C e D.
 
 ### Attenzione ai tempi di taglio
 

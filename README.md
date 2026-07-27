@@ -203,7 +203,7 @@ annuali, esportabili in un **report PDF**. Gira su Android e Windows, backend PH
   width="820" controls muted loop>
 </video>
 
-<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/mikesullyshop-demo.mp4">apri il video</a> · 87s, senza audio</sub>
+<sub>Se il player non parte: <a href="https://github.com/proismamaster/proismamaster/raw/main/assets/demo/mikesullyshop-demo.mp4">apri il video</a> · 83s, senza audio</sub>
 
 </div>
 
@@ -220,10 +220,13 @@ prezzi, sconti e caricamento multiplo delle foto; ordini da seguire e far avanza
 di stato; riepilogo delle vendite. Password con `password_hash`, query preparate,
 `htmlspecialchars` ovunque.
 
-> Nel video l'ordine che si vede nascere è **vero**: passa dal checkout e
-> dall'OTP, e per questo ricompare in cima al pannello Ordini. Il catalogo e le
-> foto sono quelli del repo; lo **storico ordini** precedente è costruito per la
-> demo, altrimenti i pannelli Ordini e Vendite sarebbero vuoti.
+> Il video sta soprattutto sul **pannello di gestione**, che è tre quarti della
+> parte da desktop. L'ordine che poi si vede in cima agli Ordini è **vero** —
+> viene creato passando dal checkout e dall'OTP — ma il checkout stesso resta
+> **fuori campo**: indirizzo di spedizione e metodo di pagamento sono dati
+> personali e non hanno niente da fare in un video di portfolio. Il catalogo e
+> le foto sono quelli del repo; lo **storico ordini** precedente è costruito per
+> la demo, altrimenti Ordini e Vendite sarebbero schermate vuote.
 
 <div align="center">
   <sub>↳ codice su <a href="https://github.com/proismamaster/mike-sully-shop">github.com/proismamaster/mike-sully-shop</a></sub>

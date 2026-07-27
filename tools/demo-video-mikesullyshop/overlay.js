@@ -57,15 +57,6 @@
     background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #e0f2fe;
   }
 
-  /* Badge sempre a schermo: il codice, il catalogo e le foto sono quelli veri
-     del progetto; sono gli ordini passati a essere costruiti per la demo. */
-  #bfd-badge {
-    position: absolute; right: ${u(22)}; bottom: ${u(18)};
-    font-size: ${u(15)}; font-weight: 600; color: rgba(255,255,255,.75);
-    background: rgba(8,30,48,.62); border: 1px solid rgba(255,255,255,.16);
-    padding: ${u(7)} ${u(16)}; border-radius: 999px; letter-spacing: .2px;
-  }
-
   #bfd-focus {
     position: absolute; border-radius: ${u(14)}; opacity: 0;
     box-shadow: 0 0 0 ${u(3)} #38bdf8, 0 0 0 9999px rgba(4, 22, 38, .60);
@@ -87,7 +78,6 @@
         fill="#fff" stroke="#082f49" stroke-width="1.4" stroke-linejoin="round"/></svg>
     </div>
     <div id="bfd-sub"></div>
-    <div id="bfd-badge">Catalogo e foto reali · ordini passati di esempio</div>
     <div id="bfd-card"></div>
   `;
   // Questo overlay viene iniettato con addInitScript, che gira PRIMA che il
