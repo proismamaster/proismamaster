@@ -27,8 +27,9 @@ const PROGETTI = {
     chips: ['JavaScript', 'Canvas', 'PWA', 'Electron'],
     url: 'github.com/proismamaster/FlappyBird-2 &nbsp;·&nbsp; ismailbarakat.dev',
     scene: [
-      ['Il gioco', 'Quattro livelli<br>di difficolta.', 'Ognuno con il suo uccellino e il suo record da battere.'],
+      ['Il gioco', 'Menu, difficolta<br>e record.', 'Quattro livelli, ognuno col suo uccellino e il suo punteggio da battere.'],
       ['Si gioca', 'Tubi, punteggio<br>e nient\'altro.', 'Un tocco per saltare: la regola del gioco sta tutta li.'],
+      ['In pausa', 'Musica ed effetti,<br>a piacere.', 'Il menu di pausa regola l\'audio senza uscire dalla partita.'],
       ['I record', 'Ogni livello<br>ha il suo record.', 'Facile, normale e difficile tengono ognuno il proprio punteggio.'],
       ['Temi', 'Giorno e notte.', 'Lo sfondo cambia, la citta dietro ai tubi resta.'],
       ['Su misura', 'La fisica si<br>regola a mano.', 'Distanza fra i tubi, spinta del salto, gravita, velocita.'],

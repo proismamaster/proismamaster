@@ -1,8 +1,9 @@
-# Demo ereditate: FlappyBird 2 e Raspberry Car
+# Demo ereditate: FlappyBird 2, Raspberry Car e Instagram Followers
 
-Due video che **non ho girato io**: sono le registrazioni di Ismail, prese dai
-repo dei rispettivi progetti (`FlappyBird-2/demo.mp4`, `Rasberry-Car/demo.mp4`).
-Qui vengono solo vestite nello stile degli screencast scriptati.
+Tre video che **non ho girato io**: sono le registrazioni di Ismail, prese dai
+repo dei rispettivi progetti (`FlappyBird-2/demo.mp4`, `Rasberry-Car/demo.mp4`,
+`ig-unfollow-audit/demo.mp4`). Qui vengono solo vestite nello stile degli
+screencast scriptati.
 
 ⚠️ Non stavano nel repo del portfolio. Il suo `.gitignore` esclude `*.mp4` e la
 storia non ne ha mai contenuto nessuno — verificato su tutti i ref con
@@ -56,4 +57,32 @@ livelli di difficoltà" mentre a schermo si sta già giocando.
 node veste.mjs                                    # cartelli, scene, maschere
 bash monta.sh flappy /percorso/FlappyBird-2/demo.mp4
 bash monta.sh car    /percorso/Rasberry-Car/demo.mp4
+```
+
+## Instagram Followers: cosa viene coperto, e perche'
+
+Questo e' orizzontale, quindi segue la strada di Forno Brace — ritaglio a 16:9,
+cartelli, didascalie sovrapposte — con due accorgimenti che non sono estetici.
+
+⚠️ **Gli username sono sfocati.** La schermata finale elenca quattordici account
+Instagram di persone che non ricambiano il follow. Sono dati di terzi: nessuno di
+loro ha chiesto di comparire in un portfolio. La lista resta nel video, perche' e'
+il risultato dello script e il senso del progetto, ma passa da `avgblur`.
+Intestazione e `Total: 14 accounts` restano leggibili.
+
+Il riquadro va misurato **sul montato**, non a occhio sull'originale: il primo
+tentativo lasciava scoperti gli ultimi due nomi.
+
+⚠️ **La schermata di esportazione e' saltata.** Mostra l'indirizzo email a cui
+Instagram manda la notifica quando l'archivio e' pronto. Non serve sfocarla: gli
+intervalli in `foll_monta.sh` non ci passano proprio.
+
+⚠️ **Le etichette dentro `filter_complex` devono essere uniche.** Lo sfocatore
+usava `[a]`/`[b]`, che collidevano con quelle dei segmenti: ffmpeg ha ricablato
+il grafo in silenzio e al posto del terminale usciva la pagina del profilo.
+Nessun errore, solo il video sbagliato.
+
+```bash
+node foll_stile.mjs
+bash foll_monta.sh
 ```

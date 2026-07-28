@@ -35,8 +35,11 @@ case "$NOME" in
           # menu delle difficolta' all'inizio dura un secondo scarso, mentre al
           # 33esimo secondo torna e ci si puo' stare. Ogni scena e' presa dove
           # si vede meglio, e la didascalia sopra ci combacia.
-          SCENE=("33.4 35.6" "1.6 8.0" "19.2 21.3" "27.5 33.0" "35.8 45.0" "52.8 55.2")
-          VEL=(1.00 1.25 1.00 1.15 1.35 1.00) ;;
+          # Nessuna scena va piu' veloce del vero tranne quella dei cursori, che
+          # e' lunghissima. Il taglio precedente correva troppo: si leggeva la
+          # didascalia e la scena era gia' finita.
+          SCENE=("33.4 35.8" "2.0 11.0" "22.8 26.8" "19.2 21.5" "27.5 33.2" "35.8 45.5" "52.6 55.2")
+          VEL=(0.85 1.00 0.95 0.85 1.00 1.10 0.90) ;;
   car)    TAGLIO="crop=1080:1796:0:62"
           SCENE=("0.5 9.0" "16.0 22.0" "23.0 35.5")
           VEL=(1.25 1.00 1.15) ;;
