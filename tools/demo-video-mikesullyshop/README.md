@@ -191,3 +191,29 @@ di circa il 2%, in altre e' venuto piu' lungo. Verifica sempre sul file:
 ```bash
 ffmpeg -ss 106.2 -i raw/*.webm -frames:v 1 check.png
 ```
+
+## La registrazione di Ismail: perché non è stata usata
+
+A demo finita Ismail ha consegnato anche una **sua** registrazione di
+MikeSullyShop (1:33, 2426x1440, con la barra del browser). L'ho guardata tutta,
+e non è entrata nel montaggio. Le ragioni, per non rifare il giro un'altra
+volta:
+
+- **Non aggiunge niente.** Vetrina, carrello, magazzino, ordini e reportistica
+  vendite ci sono già nel montaggio scriptato, girati a 1920x1080 nativi.
+- **Il cambio di stato non si vede nemmeno lì.** Era l'unica cosa che questo
+  video non riesce a mostrare (il badge che cambia colore in Gestione Ordini).
+  Nella registrazione di Ismail l'ordine #2 compare **già** *Consegnato*: si
+  vede lo stato finale, non il passaggio. Stesso limite, non un rimedio.
+- **C'è la sua Gmail personale.** Il pezzo davvero nuovo sarebbe la posta
+  transazionale — il codice OTP alla registrazione e l'email "Ordine #2 · Stato
+  aggiornato a Consegnato" — che dimostra una funzione vera dell'app. Ma vive
+  dentro la sua casella: indirizzo personale, `1 di 1.474`, la barra laterale di
+  Google. Ritagliare la sola scheda del messaggio lascia ~950x700 px da
+  ingrandire più del doppio: viene molle, e basta allargare di poco per
+  riprendere la casella.
+- **Il suo indirizzo email compare in tutto il pannello admin**, come cliente di
+  prova degli ordini e nel Report Cliente.
+
+Se un giorno serve mostrare la posta transazionale, la strada è rifarla con una
+casella usa e getta, non ritagliare quella vera.

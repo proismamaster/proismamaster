@@ -68,7 +68,14 @@ const DIDASCALIE = [
   'Il menu si filtra per categoria e si cerca per nome.',
   'Ogni prodotto con la sua foto, il prezzo e la <b>quantita</b>.',
   'Consegna, asporto o tavolo — con orari e mappa della bottega.',
-  'Dietro c\'e il <b>pannello di gestione</b> del menu: prezzi, disponibilita, nuovi prodotti.',
+  // Da qui in poi il pezzo che prima era tagliato: il giro completo di un
+  // ordine, dal cruscotto del titolare fino a quello che vede il cliente.
+  'Il titolare entra nell\'<b>area di gestione</b>.',
+  'Il cruscotto: ordini di oggi, incasso, cosa e in lavorazione.',
+  'Lo stato si cambia da qui — l\'ordine passa a <b>Consegnato</b>.',
+  'E il cliente lo vede subito nei <b>suoi ordini</b>.',
+  'I numeri del cruscotto si aggiornano da soli.',
+  'Dallo stesso pannello si gestisce il <b>menu</b>: prezzi, disponibilita, nuovi prodotti.',
   'Tutto su <b>Node.js</b>, Express e un database SQLite.',
 ];
 
